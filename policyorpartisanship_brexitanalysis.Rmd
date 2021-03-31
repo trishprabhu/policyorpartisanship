@@ -1,0 +1,219 @@
+---
+title: "Policy or Partisanship: Replicating Results From An Analysis of Quasi-Experimental Evidence From Brexit"
+author: "Trisha Prabhu"
+date: "4/28/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load libraries:
+
+library(foreign)
+library(tidyverse)
+library(ggplot2)
+library(arm)
+library(stargazer)
+library(janitor)
+library(ggthemes)
+library(dplyr)
+library(arm)
+library(packrat)
+
+# Read in the various "waves" of data:
+
+BES6 <- read.dta("~/Downloads/BES2015_W6_v3.9.dta")
+BES7 <- read.dta("~/Downloads/BES2015_W7_v2.2-1.dta")
+BES8 <- read.dta("~/Downloads/BES2015_W8_v2.3.dta")
+BES9 <- read.dta("~/Downloads/BES2015_W9_v1.7.dta")
+BES11 <- read.dta("~/Downloads/BES2015_W11_v1.5.dta")
+BES13 <- read.dta("~/Downloads/BES2017_W13_v1.5.dta")
+
+```
+
+### Let's begin by cleaning the data:
+```{r}
+
+# Recode EU integration values:
+
+BES8 <- BES8 %>%
+  dplyr::mutate(EUIntegrationCon = case_when(EUIntegrationCon == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationCon == "1" ~ 1, EUIntegrationCon == "2" ~ 2,
+                                      EUIntegrationCon == "3" ~ 3, EUIntegrationCon == "4" ~ 4,
+                                      EUIntegrationCon == "5" ~ 5, EUIntegrationCon == "6" ~ 6,
+                                      EUIntegrationCon == "7" ~ 7, EUIntegrationCon == "8" ~ 8,
+                                      EUIntegrationCon == "9" ~ 9, EUIntegrationCon == "Protect our independence" ~ 10))
+BES8 <- BES8 %>%
+  dplyr::mutate(EUIntegrationLab = case_when(EUIntegrationLab == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationLab == "1" ~ 1, 
+                                      EUIntegrationLab == "2" ~ 2,
+                                      EUIntegrationLab == "3" ~ 3,
+                                      EUIntegrationLab == "4" ~ 4,
+                                      EUIntegrationLab == "5" ~ 5,
+                                      EUIntegrationLab == "6" ~ 6,
+                                      EUIntegrationLab == "7" ~ 7,
+                                      EUIntegrationLab == "8" ~ 8,
+                                      EUIntegrationLab == "9" ~ 9,
+                                      EUIntegrationLab == "Protect our independence" ~ 10))
+
+BES8 <- BES8 %>%
+  dplyr::mutate(EUIntegrationSelf = case_when(EUIntegrationSelf == "Unite fully with the European Union" ~ 0,
+                                       EUIntegrationSelf == "1" ~ 1, 
+                                       EUIntegrationSelf == "2" ~ 2,
+                                       EUIntegrationSelf == "3" ~ 3,
+                                       EUIntegrationSelf == "4" ~ 4,
+                                       EUIntegrationSelf == "5" ~ 5,
+                                       EUIntegrationSelf == "6" ~ 6,
+                                       EUIntegrationSelf == "7" ~ 7,
+                                       EUIntegrationSelf == "8" ~ 8,
+                                       EUIntegrationSelf == "9" ~ 9,
+                                       EUIntegrationSelf == "Protect our independence" ~ 10))
+
+BES9 <- BES9 %>%
+  mutate(EUIntegrationCon = case_when(EUIntegrationCon == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationCon == "1" ~ 1, EUIntegrationCon == "2" ~ 2,
+                                      EUIntegrationCon == "3" ~ 3, EUIntegrationCon == "4" ~ 4,
+                                      EUIntegrationCon == "5" ~ 5, EUIntegrationCon == "6" ~ 6,
+                                      EUIntegrationCon == "7" ~ 7, EUIntegrationCon == "8" ~ 8,
+                                      EUIntegrationCon == "9" ~ 9, EUIntegrationCon == "Protect our independence" ~ 10))
+
+BES9 <- BES9 %>%
+  mutate(EUIntegrationLab = case_when(EUIntegrationLab == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationLab == "1" ~ 1, EUIntegrationLab == "2" ~ 2,
+                                      EUIntegrationLab == "3" ~ 3, EUIntegrationLab == "4" ~ 4,
+                                      EUIntegrationLab == "5" ~ 5, EUIntegrationLab == "6" ~ 6,
+                                      EUIntegrationLab == "7" ~ 7, EUIntegrationLab == "8" ~ 8,
+                                      EUIntegrationLab == "9" ~ 9, EUIntegrationLab == "Protect our independence" ~ 10))
+
+
+BES9 <- BES9 %>%
+  mutate(EUIntegrationSelf = case_when(EUIntegrationSelf == "Unite fully with the European Union" ~ 0,
+                                       EUIntegrationSelf == "1" ~ 1, EUIntegrationSelf == "2" ~ 2,
+                                       EUIntegrationSelf == "3" ~ 3, EUIntegrationSelf == "4" ~ 4,
+                                       EUIntegrationSelf == "5" ~ 5, EUIntegrationSelf == "6" ~ 6,
+                                       EUIntegrationSelf == "7" ~ 7, EUIntegrationSelf == "8" ~ 8,
+                                       EUIntegrationSelf == "9" ~ 9, EUIntegrationSelf == "Protect our independence" ~ 10))
+
+```
+
+
+### Let's now do some analyses and replication of figures:
+```{r}
+
+# Let's analyze the strength of our assumption that there was a sudden change
+# in Conservative party positioning, unaffected by other important omitted 
+# variables (e.g. a similar change in Labor party positioning).
+
+# Examine perceived Euroskepticism of Conservatives and Labour in Waves 8 and 9
+# We're looking at a 0 - 10 scale, with 10 being most Euroskeptic
+# Note that Wave 8 is immediately leading up to the referendum; Wave 9 is
+# immediately after
+
+con_before <- mean(BES8$EUIntegrationCon, na.rm=TRUE)
+con_after <- mean(BES9$EUIntegrationCon, na.rm=TRUE)
+lab_before <- mean(BES8$EUIntegrationLab, na.rm=TRUE)
+lab_after <-mean(BES9$EUIntegrationLab, na.rm=TRUE)
+
+#  Percentage change in Conservative party positioning:
+
+(con_after - con_before)/con_before
+
+# From the paper: "Only the convservatives exhibited a sudden change in
+# positioning on Brexit"; here, we see the average perceived Euroskepticism
+# of the Conservatives increase by 8%.
+
+```
+
+```{r}
+
+# And now, for some other relevant cleaning:
+
+# Create race variable:
+
+BES8$white <- ifelse(BES8$profile_ethnicity == "White British" | BES8$profile_ethnicity == "Any other white background", 1, 0)
+
+BES8$EUIntegrationCon8 <- BES8$EUIntegrationCon
+BES8$partyId8 <- BES8$partyId
+BES8$EUIntegrationSelf8 <- BES8$EUIntegrationSelf 
+
+# Create Conservative partyID, for both Waves 8 and 9:
+
+BES8$Con <- ifelse(BES8$partyId =="Conservative", 1, 0)
+BES8$Con8 <- BES8$Con 
+
+BES9$Con <- ifelse(BES9$partyId=="Conservative", 1, 0)
+BES9$Con9 <- BES9$Con 
+
+BES9$EUIntegrationCon9 <- BES9$EUIntegrationCon
+BES9$EUIntegrationSelf9 <- BES9$EUIntegrationSelf 
+BES9$partyId9 <- BES9$partyId
+
+# Let's now answer the main question of the paper: do voters switch their party identification as a
+# function of their Euroskepticism?
+
+# Let's subset Wave 8 to Conservatives:
+
+BES8subcons <- BES8[BES8$partyId == "Conservative",]
+
+# Let's merge the Conservatives in Wave 8 to the BE9 (post-referendum) data,
+# so we can look at switching:
+
+merge <- merge(BES8subcons, BES9, by= "id")
+
+# And here we go! Table 1:
+
+# Let's create a variable that indicates switching:
+
+merge$partyswitcher <- ifelse(merge$partyId8 != merge$partyId9, 1, 0)
+
+# Table 1:
+# Note that the dependent variable here is the respondent's self-reported level
+# of Euroskepticism, on a 0 - 10 scale:
+
+table1reg <- lm(merge$partyswitcher ~ merge$EUIntegrationSelf8)
+summary(table1reg)
+
+# Let's create a variable that represents the change (post-referendum) in 
+# perceived Euroskepticism of Conservatives:
+
+merge$Conchange <- merge$EUIntegrationCon9 - merge$EUIntegrationCon8
+
+# And include it in our regression as an interaction:
+
+intreg1 <- lm(merge$partyswitcher ~ merge$EUIntegrationSelf8 * merge$Conchange)
+summary(intreg1)
+
+# From the paper (Page 11): the interaction is negative and significant: less 
+# Euroskeptic Conservatives who perceive that the party has become increasingly 
+# Euroskeptic are especially likely to reject it.
+
+# And now, let's throw everything in: 
+
+intreg1a <- lm(merge$partyswitcher ~ merge$EUIntegrationSelf8 * merge$Conchange 
+               + merge$age.x + merge$gender.x + merge$white + 
+                 as.factor(merge$country.x))
+summary(intreg1a)
+
+stargazer(table1reg, intreg1, intreg1a, 
+          title = "Euroskepticism and Defection from the Conservatives", 
+          no.space=TRUE,star.cutoffs = c(0.05, 0.01, 0.001)) 
+
+# From the paper (Page 11): "of those who identified as Conservative before the 
+# referendum, 9.0 percent of respondents with pre-referendum Euroskepticism 
+# scores of 4-5 (on a ten-point scale), 9.8 percent of those with scores of 2-3, 
+# and 9.9 percent of those with scores of 0-1 turned their backs on the party. 
+# The less Euroskeptic a voter was before the referendum, the more likely they 
+# were to disaffiliate from the party in the aftermath of its embrace of 
+# Brexit."
+
+merge45 <- merge[merge$EUIntegrationSelf8=="5" | merge$EUIntegrationSelf8=="4",]
+merge23 <- merge[merge$EUIntegrationSelf8=="3" | merge$EUIntegrationSelf8=="2",]
+merge01 <- merge[merge$EUIntegrationSelf8=="1" | merge$EUIntegrationSelf8=="0",]
+
+mean(merge45$partyswitcher,na.rm=TRUE)
+mean(merge23$partyswitcher,na.rm=TRUE)
+mean(merge01$partyswitcher,na.rm=TRUE)
+
+```
+
