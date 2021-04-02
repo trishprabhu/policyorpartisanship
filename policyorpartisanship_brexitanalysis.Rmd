@@ -214,7 +214,10 @@ stargazer(table1reg, intreg1, intreg1a,
                                "Wales", 
                                "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
                                "Constant"),
-          dep.var.caption  = "Dependent variable:",
+          
+# How to get the caption in italics (why isn't "em" working)?
+          
+          dep.var.caption  = "<em> Dependent variable: </em>",
           dep.var.labels   = "Defect from Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
           font.size = "tiny",
@@ -276,16 +279,20 @@ merge2$Conchange <- merge2$EUIntegrationCon9 - merge2$EUIntegrationCon8
 intreg2 <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange)
 summary(intreg2)
 
-# From the paper: "the interaction is negative and significant: less Euroskeptic 
-# Conservatives who perceive that the party has become increasingly Euroskeptic 
-# are especially likely to reject it.
-
 # And now, let's throw everything in again:
 
 intreg2a <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange 
               + merge2$age.x + merge2$gender.x + merge2$white + 
                 as.factor(merge2$country.x))
 summary(intreg2a)
+
+# From the paper: "A one-point increase in pre-referendum Euroskepticism 
+# generates a .7 percent increase in the probability of switching loyalties to 
+# the Conservatives. And the interaction term is positive and significant, 
+# indicating that Euroskeptic non-Conservatives who perceived an increase in 
+# Conservative Euroskepticism following the referendum were especially likely to 
+#join the Conservatives."
+
 ```
 
 ```{r, results = 'asis'}
@@ -303,11 +310,37 @@ stargazer(table2reg, intreg2, intreg2a,
                                "Wales", 
                                "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
                                "Constant"),
-          dep.var.caption  = "Dependent variable:",
+
+# How to get the caption in italics (why isn't "em" working)?
+          
+          dep.var.caption  = "<em> Dependent variable: </em>",
           dep.var.labels   = "Joined Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01,0.001),
           font.size = "tiny",
           header = FALSE) 
+
+```
+
+
+```{r}
+
+# Let's look at the percent switched for various groups of Euroskepticism 
+# scores:
+
+merge2910 <- merge2[merge2$EUIntegrationSelf8=="9" | merge2$EUIntegrationSelf8=="10",]
+merge278 <- merge2[merge2$EUIntegrationSelf8=="7" | merge2$EUIntegrationSelf8=="8",]
+merge256 <- merge2[merge2$EUIntegrationSelf8=="5" | merge2$EUIntegrationSelf8=="6",]
+
+mean(merge2910$switchtocons,na.rm=TRUE)
+mean(merge278$switchtocons,na.rm=TRUE)
+mean(merge256$switchtocons,na.rm=TRUE)
+
+# From the paper: "Of those respondents who did not identify as Conservative 
+# before the referendum, 2.8 percent with Euroskepticism scores of 5 or 6, 5.0 
+# percent with scores of 7 or 8, and 6.7 percent with scores of 9 or 10 joined 
+# the Conservatives. The more Euroskeptic the respondent, the more likely they 
+# were to swing behind the Conservatives following the party’s shift in policy
+# position.
 
 ```
 
