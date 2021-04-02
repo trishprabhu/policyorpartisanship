@@ -125,6 +125,7 @@ lab_after <-mean(BES9$EUIntegrationLab, na.rm=TRUE)
 
 ```
 
+Let's create Table 1:
 ```{r results ='asis'}
 
 # And now, for some other relevant cleaning:
@@ -168,7 +169,7 @@ merge <- merge(BES8subcons, BES9, by= "id")
 merge$partyswitcher <- ifelse(merge$partyId8 != merge$partyId9, 1, 0)
 
 # Table 1:
-# Note that the dependent variable here is the respondent's self-reported level
+# Note that the independent variable here is the respondent's self-reported level
 # of Euroskepticism, on a 0 - 10 scale:
 
 table1reg <- lm(merge$partyswitcher ~ merge$EUIntegrationSelf8)
@@ -198,9 +199,10 @@ summary(intreg1a)
 # NOTE FOR TRISHA: You need to change the names of the variables in the table
 # to match the paper!
 
-stargazer(table1reg, intreg1, intreg1a, 
+table1 <- stargazer(table1reg, intreg1, intreg1a, 
           title = "Euroskepticism and Defection from the Conservatives", 
           no.space = TRUE,star.cutoffs = c(0.05, 0.01, 0.001)) 
+table1
 
 # How do I get rid of the weird author caption being produced with the table?
 
@@ -219,6 +221,60 @@ merge01 <- merge[merge$EUIntegrationSelf8=="1" | merge$EUIntegrationSelf8=="0",]
 mean(merge45$partyswitcher,na.rm=TRUE)
 mean(merge23$partyswitcher,na.rm=TRUE)
 mean(merge01$partyswitcher,na.rm=TRUE)
+
+```
+
+Let's create Table 2:
+```{r}
+
+# Let's now subset to pre-referendum non-Conservatives:
+
+BES8notcons<- BES8[BES8$partyId != "Conservative",] 
+
+# And now, let's merge that info. with our post-referendum data:
+
+merge2 <- merge(BES8notcons, BES9, by="id")
+
+# Who switches to Conservative post-referendum?
+
+merge2$switchtocons <- ifelse(merge2$partyId9 == "Conservative", 1, 0)
+
+# What's the average?
+
+mean(merge2$switchtocons)
+
+# Let's regress folks' self-reported pre-referendum level of Euroskepticism, on
+# a scale from 0 - 10, on those who switch to Conservative post-referendum.
+
+table2reg <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8)
+summary(table2reg)
+
+# Let's create a variable that represents the change (post-referendum) in 
+# perceived Euroskepticism of Conservatives:
+
+merge2$Conchange <- merge2$EUIntegrationCon9 - merge2$EUIntegrationCon8
+
+# And include that variable as an interaction:
+
+intreg2 <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange)
+summary(intreg2)
+
+# From the paper: "the interaction is negative and significant: less Euroskeptic 
+# Conservatives who perceive that the party has become increasingly Euroskeptic 
+# are especially likely to reject it.
+
+# And now, let's throw everything in again:
+
+intreg2a <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange 
+              + merge2$age.x + merge2$gender.x + merge2$white + 
+                as.factor(merge2$country.x))
+summary(intreg2a)
+
+# And finally, let's create Table 2, with everything:
+
+stargazer(table2reg, intreg2, intreg2a, 
+          title = "Euroskepticism and Joining the Conservatives",
+          no.space = TRUE,star.cutoffs = c(0.05, 0.01,0.001)) 
 
 ```
 
