@@ -125,7 +125,7 @@ lab_after <-mean(BES9$EUIntegrationLab, na.rm=TRUE)
 
 ```
 
-Let's create Table 1:
+### Let's create Table 1:
 ```{r}
 
 # And now, for some other relevant cleaning:
@@ -245,7 +245,7 @@ mean(merge01$partyswitcher,na.rm=TRUE)
 
 ```
 
-Let's create Table 2:
+### Let's create Table 2:
 ```{r}
 # Let's now subset to pre-referendum non-Conservatives:
 
@@ -253,37 +253,37 @@ BES8notcons<- BES8[BES8$partyId != "Conservative",]
 
 # And now, let's merge that info. with our post-referendum data:
 
-merge2 <- merge(BES8notcons, BES9, by="id")
+merged2 <- merge(BES8notcons, BES9, by="id")
 
 # Who switches to Conservative post-referendum?
 
-merge2$switchtocons <- ifelse(merge2$partyId9 == "Conservative", 1, 0)
+merged2$switchtocons <- ifelse(merged2$partyId9 == "Conservative", 1, 0)
 
 # What's the average?
 
-mean(merge2$switchtocons)
+mean(merged2$switchtocons)
 
 # Let's regress folks' self-reported pre-referendum level of Euroskepticism, on
 # a scale from 0 - 10, on those who switch to Conservative post-referendum.
 
-table2reg <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8)
+table2reg <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8)
 summary(table2reg)
 
 # Let's create a variable that represents the change (post-referendum) in 
 # perceived Euroskepticism of Conservatives:
 
-merge2$Conchange <- merge2$EUIntegrationCon9 - merge2$EUIntegrationCon8
+merged2$Conchange <- merged2$EUIntegrationCon9 - merged2$EUIntegrationCon8
 
 # And include that variable as an interaction:
 
-intreg2 <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange)
+intreg2 <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conchange)
 summary(intreg2)
 
 # And now, let's throw everything in again:
 
-intreg2a <- lm(merge2$switchtocons ~ merge2$EUIntegrationSelf8 * merge2$Conchange 
-              + merge2$age.x + merge2$gender.x + merge2$white + 
-                as.factor(merge2$country.x))
+intreg2a <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conchange 
+              + merged2$age.x + merged2$gender.x + merged2$white + 
+                as.factor(merged2$country.x))
 summary(intreg2a)
 
 # From the paper: "A one-point increase in pre-referendum Euroskepticism 
@@ -327,13 +327,13 @@ stargazer(table2reg, intreg2, intreg2a,
 # Let's look at the percent switched for various groups of Euroskepticism 
 # scores:
 
-merge2910 <- merge2[merge2$EUIntegrationSelf8=="9" | merge2$EUIntegrationSelf8=="10",]
-merge278 <- merge2[merge2$EUIntegrationSelf8=="7" | merge2$EUIntegrationSelf8=="8",]
-merge256 <- merge2[merge2$EUIntegrationSelf8=="5" | merge2$EUIntegrationSelf8=="6",]
+merge256 <- merged2[merged2$EUIntegrationSelf8 =="5" | merged2$EUIntegrationSelf8 =="6",]
+merge278 <- merged2[merged2$EUIntegrationSelf8 =="7" | merged2$EUIntegrationSelf8 =="8",]
+merge2910 <- merged2[merged2$EUIntegrationSelf8 =="9" | merged2$EUIntegrationSelf8 =="10",]
 
-mean(merge2910$switchtocons,na.rm=TRUE)
-mean(merge278$switchtocons,na.rm=TRUE)
 mean(merge256$switchtocons,na.rm=TRUE)
+mean(merge278$switchtocons,na.rm=TRUE)
+mean(merge2910$switchtocons,na.rm=TRUE)
 
 # From the paper: "Of those respondents who did not identify as Conservative 
 # before the referendum, 2.8 percent with Euroskepticism scores of 5 or 6, 5.0 
@@ -341,6 +341,68 @@ mean(merge256$switchtocons,na.rm=TRUE)
 # the Conservatives. The more Euroskeptic the respondent, the more likely they 
 # were to swing behind the Conservatives following the party’s shift in policy
 # position.
+
+```
+
+### But do strong partisans (e.g. very committed to Conservative) change their policy preferences?
+```{r}
+# From the paper: "In Figure 1, we look at whether stronger Conservative 
+# partisans were more likely to become Euroskeptic following the sudden, as-if 
+# random change in Conservative positioning on Brexit than less staunch 
+# supporters of the party."
+
+# A respondent’s change in Euroskepticism between Waves 8 and 9:
+
+merged$Euroskepticismchange <- merged$EUIntegrationSelf9 - merged$EUIntegrationSelf8
+
+# Let's subset voters; we can run the same regression on each group:
+
+mergestrong <- merged[merged$partyIdStrength.x=="Very strong",]
+mergenotstrong <- merged[merged$partyIdStrength.x!="Very strong",]
+   
+# Let's create Table 3 (independent variable -- perceived increase in 
+# Conservative Euroskepticism):
+
+intreg3B <- lm(Euroskepticismchange ~ Conchange + gender.x + age.x + white 
+               + country.x, data = mergestrong)
+summary(intreg3B) 
+
+intreg3A <- lm(Euroskepticismchange ~ Conchange + gender.x + age.x + white 
+               + country.x, data = mergenotstrong)
+summary(intreg3A)
+
+```
+
+```{r, results = 'asis'}
+
+# And finally, our table:
+
+stargazer(intreg3A, intreg3B, 
+          title = "Individual Shifts in Euroskepticism",
+          no.space = TRUE,
+          covariate.labels = c("Perceived Change in Conservative Euroskepticism", 
+                               "Female",
+                               "Age",
+                               "White",
+                               "Scotland",
+                               "Wales", 
+                               "Constant"),
+          dep.var.caption  = "Dependent variable:",
+          dep.var.labels   = "Change in Personal Euroskepticism:",
+          column.labels   = c("Moderate Conservatives", 
+                              "Very Strong Conservatives"),
+          model.numbers = FALSE,
+          star.cutoffs = c(0.05, 0.01,0.001))
+
+# From the paper: There is a clear, statistically significant, positive 
+# relationship between Conservative partisans’ perception of their party’s 
+# increasing Euroskepticism and their own Euroskepticism. But the size of the 
+# effect is limited: even for very strong Conservatives, a one-unit increase in 
+# perceived Conservative Euroskepticism on a ten-point scale yields only a 0.22
+# - unit increase in personal Euroskepticism. Unsurprisingly, as the relative 
+# sizes of the two coefficients in the top row indicate, the effect is stronger 
+# among Conservatives who described their partisan identity as very strong 
+# before the referendum.
 
 ```
 
