@@ -377,6 +377,8 @@ summary(intreg3A)
 
 # And finally, our table:
 
+# How to get the caption in italics?
+
 stargazer(intreg3A, intreg3B, 
           title = "Individual Shifts in Euroskepticism",
           no.space = TRUE,
@@ -446,6 +448,8 @@ bigmerge$Partisan <- factor(bigmerge$Partisan, levels = c("Non-Conservative",
 
 # Let's make our ggplot:
 
+# How to remove warnings here?
+
 g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Partisan)) +
   geom_point(size = 0.1) + 
   stat_smooth(method = "lm",se = TRUE) +
@@ -453,11 +457,55 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
   xlab("Perceived Change in Conservative Euroskepticism") +
   ylab("Change in Personal Euroskepticism") 
 
-g
-
 # From the paper: "The intensity of Conservative partisanship determined the 
 # extent to which voters followed the party’s evolving position on the EU – or, 
 # more precisely, their perception of the party’s evolving position."
+
+```
+### As previously non-Conservative Euroskeptics flocked to the party, what happened to their views on other issues?
+```{r}
+
+# From the paper: "We find that joining the Conservatives led voters to update 
+# their views on economic issues to bring them into line with the positions of 
+# their new party; party affiliation, we contend, influenced the subsequent 
+# evolution of voters’ policy preferences.
+
+# In particular, the authors examine attitudes around redistribution.
+
+# Let's make Table 4 and the associated Figure 2 (which supports a key 
+# assumption for us to draw inferences from Table 4):
+
+BES7 <- BES7 %>%
+  mutate(redistSelf = case_when(redistSelf == "Government should try to make incomes equal" ~ 0,
+                                redistSelf == "1" ~ 1, redistSelf== "2" ~ 2,
+                                redistSelf == "3" ~ 3, redistSelf == "4" ~ 4,
+                                redistSelf == "5" ~ 5, redistSelf == "6" ~ 6,
+                                redistSelf == "7" ~ 7, redistSelf == "8" ~ 8,
+                                redistSelf == "9" ~ 9, 
+                                redistSelf == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7$redistSelf7 <- BES7$redistSelf
+merged2 <- merge(merged2, BES7, by="id")
+
+BES11 <- BES11 %>%
+  mutate(redistSelf = case_when(redistSelf== "Government should try to make incomes equal" ~ 0,
+                                redistSelf == "1" ~ 1, redistSelf== "2" ~ 2, 
+                                redistSelf == "3" ~ 3, redistSelf == "4" ~ 4,
+                                redistSelf == "5" ~ 5, redistSelf == "6" ~ 6,
+                                redistSelf == "7" ~ 7, redistSelf == "8" ~ 8,
+                                redistSelf == "9" ~ 9,
+                                redistSelf == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11$redistSelf11 <- BES11$redistSelf
+
+merged2 <- merge(merged2, BES11, by="id")
+
+
+merged2$redistchange <- merged2$redistSelf11- merged2$redistSelf7
+table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x + 
+                  country.x, data = merged2)
+summary(table4reg)
+
 
 ```
 
