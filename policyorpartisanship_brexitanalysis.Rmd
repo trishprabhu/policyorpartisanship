@@ -406,3 +406,58 @@ stargazer(intreg3A, intreg3B,
 
 ```
 
+### Let's create Figure 1 (which corresponds with Table 3):
+```{r}
+
+# First, let's merge Waves 8 and 9:
+
+bigmerge <- merge(BES8, BES9, by = "id")
+
+# And create relevant values:
+
+bigmerge$Euroskepticismchange <- bigmerge$EUIntegrationSelf9 - bigmerge$EUIntegrationSelf8
+bigmerge$Conchange <- bigmerge$EUIntegrationCon9 - bigmerge$EUIntegrationCon8
+
+# And now, let's subset to 3 groups:
+
+bigmerge$Partisan[bigmerge$partyId8 != "Conservative"] <- "Non-Conservative"
+bigmerge$Partisan[bigmerge$partyId8 == "Conservative" & bigmerge$partyIdStrength.x != "Very strong"] <- "Moderate Conservative"
+bigmerge$Partisan[bigmerge$partyId8 == "Conservative" & bigmerge$partyIdStrength.x == "Very strong"] <- "Very Strong Conservative"
+
+# And create relevant variables representing the 3 groups:
+
+bigmergenon <- bigmerge[bigmerge$Partisan == "Non-Conservative",]
+bigmergemod<- bigmerge[bigmerge$Partisan == "Moderate Conservative",]
+bigmergever <- bigmerge[bigmerge$Partisan == "Very Strong Conservative",]
+
+# What percentage of each group switched?
+
+mean(bigmergenon$Conchange, na.rm = TRUE)
+mean(bigmergemod$Conchange, na.rm = TRUE)
+mean(bigmergever$Conchange, na.rm = TRUE)
+
+mean(bigmergenon$Euroskepticismchang, na.rm = TRUE)
+mean(bigmergemod$Euroskepticismchang, na.rm = TRUE)
+mean(bigmergever$Euroskepticismchang, na.rm = TRUE)
+
+bigmerge$Partisan <- factor(bigmerge$Partisan, levels = c("Non-Conservative", 
+                                                          "Moderate Conservative", 
+                                                          "Very Strong Conservative"))
+
+# Let's make our ggplot:
+
+g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Partisan)) +
+  geom_point(size = 0.1) + 
+  stat_smooth(method = "lm",se = TRUE) +
+  theme_bw() +
+  xlab("Perceived Change in Conservative Euroskepticism") +
+  ylab("Change in Personal Euroskepticism") 
+
+g
+
+# From the paper: "The intensity of Conservative partisanship determined the 
+# extent to which voters followed the party’s evolving position on the EU – or, 
+# more precisely, their perception of the party’s evolving position."
+
+```
+
