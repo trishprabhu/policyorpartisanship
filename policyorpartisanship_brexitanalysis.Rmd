@@ -203,7 +203,7 @@ summary(intreg1a)
 
 # And now, let's create our table:
 
-table1 <- stargazer(table1reg, intreg1, intreg1a, 
+stargazer(table1reg, intreg1, intreg1a, 
           title = "Euroskepticism and Defection from the Conservatives",
           covariate.labels = c("Pre-Referendum Euroskepticism", 
                                "Perceived Change in Conservative Euroskepticism", 
@@ -216,13 +216,13 @@ table1 <- stargazer(table1reg, intreg1, intreg1a,
                                "Constant"),
           dep.var.caption  = "Dependent variable:",
           dep.var.labels   = "Defect from Conservatives",
-          no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001)) 
-table1
+          no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
+          font.size = "tiny",
+          header = FALSE) 
+
 ```
 
 ```{r}
-
-# How do I get rid of the weird author caption being produced with the table?
 
 # From the paper (Page 11): "of those who identified as Conservative before the 
 # referendum, 9.0 percent of respondents with pre-referendum Euroskepticism 
@@ -294,7 +294,20 @@ summary(intreg2a)
 
 stargazer(table2reg, intreg2, intreg2a, 
           title = "Euroskepticism and Joining the Conservatives",
-          no.space = TRUE,star.cutoffs = c(0.05, 0.01,0.001)) 
+          covariate.labels = c("Pre-Referendum Euroskepticism", 
+                               "Perceived Change in Conservative Euroskepticism", 
+                               "Age",
+                               "Female",
+                               "White",
+                               "Scotland",
+                               "Wales", 
+                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Constant"),
+          dep.var.caption  = "Dependent variable:",
+          dep.var.labels   = "Joined Conservatives",
+          no.space = TRUE, star.cutoffs = c(0.05, 0.01,0.001),
+          font.size = "tiny",
+          header = FALSE) 
 
 ```
 
