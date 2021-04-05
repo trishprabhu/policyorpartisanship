@@ -214,10 +214,6 @@ stargazer(table1reg, intreg1, intreg1a,
                                "Wales", 
                                "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
                                "Constant"),
-          
-# How to get the caption in italics (why isn't "em" working)?
-          
-          dep.var.caption  = "<em> Dependent variable: </em>",
           dep.var.labels   = "Defect from Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
           font.size = "tiny",
@@ -253,7 +249,7 @@ BES8notcons<- BES8[BES8$partyId != "Conservative",]
 
 # And now, let's merge that info. with our post-referendum data:
 
-merged2 <- merge(BES8notcons, BES9, by="id")
+merged2 <- merge(BES8notcons, BES9, by = "id")
 
 # Who switches to Conservative post-referendum?
 
@@ -310,10 +306,7 @@ stargazer(table2reg, intreg2, intreg2a,
                                "Wales", 
                                "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
                                "Constant"),
-
-# How to get the caption in italics (why isn't "em" working)?
           
-          dep.var.caption  = "<em> Dependent variable: </em>",
           dep.var.labels   = "Joined Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01,0.001),
           font.size = "tiny",
@@ -377,8 +370,6 @@ summary(intreg3A)
 
 # And finally, our table:
 
-# How to get the caption in italics?
-
 stargazer(intreg3A, intreg3B, 
           title = "Individual Shifts in Euroskepticism",
           no.space = TRUE,
@@ -389,7 +380,6 @@ stargazer(intreg3A, intreg3B,
                                "Scotland",
                                "Wales", 
                                "Constant"),
-          dep.var.caption  = "Dependent variable:",
           dep.var.labels   = "Change in Personal Euroskepticism:",
           column.labels   = c("Moderate Conservatives", 
                               "Very Strong Conservatives"),
@@ -464,7 +454,6 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
 ```
 ### As previously non-Conservative Euroskeptics flocked to the party, what happened to their views on other issues?
 ```{r}
-
 # From the paper: "We find that joining the Conservatives led voters to update 
 # their views on economic issues to bring them into line with the positions of 
 # their new party; party affiliation, we contend, influenced the subsequent 
@@ -474,6 +463,8 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
 
 # Let's make Table 4 and the associated Figure 2 (which supports a key 
 # assumption for us to draw inferences from Table 4):
+
+# Let's start with some cleaning:
 
 BES7 <- BES7 %>%
   mutate(redistSelf = case_when(redistSelf == "Government should try to make incomes equal" ~ 0,
@@ -485,7 +476,7 @@ BES7 <- BES7 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES7$redistSelf7 <- BES7$redistSelf
-merged2 <- merge(merged2, BES7, by="id")
+merged2 <- merge(merged2, BES7, by = "id")
 
 BES11 <- BES11 %>%
   mutate(redistSelf = case_when(redistSelf== "Government should try to make incomes equal" ~ 0,
@@ -497,15 +488,259 @@ BES11 <- BES11 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES11$redistSelf11 <- BES11$redistSelf
+merged2 <- merge(merged2, BES11, by = "id")
 
-merged2 <- merge(merged2, BES11, by="id")
+# From the paper: "We now estimate the effect of joining the Conservatives on changes in 
+# attitudes towards redistribution. Our dependent variable, “Increase in 
+# Opposition to Redistribution,” is the level of opposition to redistribution in 
+# Wave 11, conducted between April 2017 and May 2017, minus the level of 
+# opposition to redistribution in Wave 7 (conducted between April 2016 and May 
+# 2016), the most recent post- and pre-referendum survey waves respectively that 
+# ask about redistribution preferences." (A higher value suggests more 
+# opposition to redistribution.)
 
+merged2$redistchange <- merged2$redistSelf11 - merged2$redistSelf7
 
-merged2$redistchange <- merged2$redistSelf11- merged2$redistSelf7
+# From the paper: "We find a positive association between joining the 
+# Conservatives and increased opposition to redistribution: as column 1 shows, 
+# affiliating with the Conservative Party is associated with more than a 
+# half-point increase in opposition to redistribution on a ten-point scale.
+
 table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x + 
                   country.x, data = merged2)
 summary(table4reg)
 
+# People who were part of UKIP (should see negligible change, as discussed in
+# the paper, as UKIP was already very opposed to redistribution):
+
+regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
+              + country.x, data = merged2, 
+              partyId8 == "United Kingdom Independence Party (UKIP)")
+summary(regUKIP)
+
+# People who were not part of UKIP -- from the paper: "the effect of joining the 
+# Conservatives on redistributive attitudes should be stronger among respondents 
+# who were not previously members of UKIP."
+
+regnonUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
+                 + country.x, data = merged2, 
+                 partyId8 != "United Kingdom Independence Party (UKIP)")
+summary(regnonUKIP)
+
+```
+
+
+```{r, results = 'asis'}
+
+# Let's create Table 4:
+
+stargazer(table4reg, regnonUKIP, regUKIP, title = "Joining the Conservatives and 
+          Opposition to Redistribution", no.space = TRUE,
+           covariate.labels = c("Joined Conservatives", 
+                               "White",
+                               "Age",
+                               "Female",
+                               "Scotland",
+                               "Wales", 
+                               "Constant"),
+          dep.var.labels   = "Change in Opposition to Redistribution",
+          column.labels   = c("Overall", 
+                              "Non-UKIP",
+                              "UKIP"),
+          model.numbers = FALSE,
+          star.cutoffs = c(0.05, 0.01,0.001))
+
+```
+
+```{r}
+
+# Let's make the corresponding Figure 2:
+
+BES7 <- BES7 %>%
+  mutate(redistCon = case_when(redistCon== "Government should try to make incomes equal" ~ 0,
+                               redistCon == "1" ~ 1, redistCon== "2" ~ 2,
+                               redistCon == "3" ~ 3, redistCon == "4" ~ 4,
+                               redistCon == "5" ~ 5, redistCon == "6" ~ 6,
+                               redistCon == "7" ~ 7, redistCon == "8" ~ 8,
+                               redistCon == "9" ~ 9, 
+                               redistCon == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistGreen = case_when(redistGreen== "Government should try to make incomes equal" ~ 0,
+                                 redistGreen == "1" ~ 1, redistGreen== "2" ~ 2,
+                                 redistGreen == "3" ~ 3, redistGreen == "4" ~ 4,
+                                 redistGreen == "5" ~ 5, redistGreen == "6" ~ 6,
+                                 redistGreen == "7" ~ 7, redistGreen == "8" ~ 8,
+                                 redistGreen == "9" ~ 9,
+                                 redistGreen == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistLab = case_when(redistLab== "Government should try to make incomes equal" ~ 0,
+                               redistLab == "1" ~ 1, redistLab== "2" ~ 2,
+                               redistLab == "3" ~ 3, redistLab == "4" ~ 4,
+                               redistLab == "5" ~ 5, redistLab == "6" ~ 6,
+                               redistLab == "7" ~ 7, redistLab == "8" ~ 8,
+                               redistLab == "9" ~ 9,
+                               redistLab == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistLD = case_when(redistLD== "Government should try to make incomes equal" ~ 0,
+                              redistLD == "1" ~ 1, redistLD== "2" ~ 2,
+                              redistLD == "3" ~ 3, redistLD == "4" ~ 4,
+                              redistLD == "5" ~ 5, redistLD == "6" ~ 6,
+                              redistLD == "7" ~ 7,redistLD == "8" ~ 8,
+                              redistLD == "9" ~ 9,
+                              redistLD == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistPC = case_when(redistPC== "Government should try to make incomes equal" ~ 0,
+                              redistPC == "1" ~ 1, redistPC== "2" ~ 2,
+                              redistPC == "3" ~ 3, redistPC == "4" ~ 4,
+                              redistPC == "5" ~ 5, redistPC == "6" ~ 6,
+                              redistPC == "7" ~ 7, redistPC == "8" ~ 8,
+                              redistPC == "9" ~ 9,
+                              redistPC == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistSNP = case_when(redistSNP== "Government should try to make incomes equal" ~ 0,
+                               redistSNP == "1" ~ 1, redistSNP== "2" ~ 2,
+                               redistSNP == "3" ~ 3, redistSNP == "4" ~ 4,
+                               redistSNP == "5" ~ 5, redistSNP == "6" ~ 6,
+                               redistSNP == "7" ~ 7, redistSNP == "8" ~ 8,
+                               redistSNP == "9" ~ 9,
+                               redistSNP == "Government should be less concerned about equal incomes" ~ 10))
+
+BES7 <- BES7 %>%
+  mutate(redistUKIP = case_when(redistUKIP== "Government should try to make incomes equal" ~ 0,
+                                redistUKIP == "1" ~ 1, redistUKIP== "2" ~ 2,
+                                redistUKIP == "3" ~ 3, redistUKIP == "4" ~ 4,
+                                redistUKIP == "5" ~ 5, redistUKIP == "6" ~ 6,
+                                redistUKIP == "7" ~ 7, redistUKIP == "8" ~ 8,
+                                redistUKIP == "9" ~ 9, redistUKIP == "Government should be less concerned about equal incomes" ~ 10))
+
+# Find average perceived opposition to redistribution by party for Wave 7: 
+
+con7 <- mean(BES7$redistCon, na.rm=TRUE)
+green7 <- mean(BES7$redistGreen, na.rm=TRUE)
+lab7 <- mean(BES7$redistLab, na.rm=TRUE)
+ld7 <- mean(BES7$redistLD, na.rm=TRUE)
+pc7 <- mean(BES7$redistPC, na.rm=TRUE)
+snp7 <- mean(BES7$redistSNP, na.rm=TRUE)
+ukip7 <- mean(BES7$redistUKIP, na.rm=TRUE)
+
+# And now the same for Wave 11:
+
+BES11 <- BES11 %>%
+  mutate(redistCon = case_when(redistCon == "Government should try to make incomes equal" ~ 0,
+                               redistCon == "1" ~ 1, redistCon== "2" ~ 2,
+                               redistCon == "3" ~ 3, redistCon == "4" ~ 4,
+                               redistCon == "5" ~ 5, redistCon == "6" ~ 6,
+                               redistCon == "7" ~ 7, redistCon == "8" ~ 8,
+                               redistCon == "9" ~ 9, 
+                               redistCon == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistGreen = case_when(redistGreen == "Government should try to make incomes equal" ~ 0,
+                                 redistGreen == "1" ~ 1, redistGreen== "2" ~ 2, 
+                                 redistGreen == "3" ~ 3, redistGreen == "4" ~ 4,
+                                 redistGreen == "5" ~ 5, redistGreen == "6" ~ 6,
+                                 redistGreen == "7" ~ 7, redistGreen == "8" ~ 8,
+                                 redistGreen == "9" ~ 9, 
+                                 redistGreen == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistLab = case_when(redistLab== "Government should try to make incomes equal" ~ 0,
+                               redistLab == "1" ~ 1, redistLab== "2" ~ 2,
+                               redistLab == "3" ~ 3, redistLab == "4" ~ 4,
+                               redistLab == "5" ~ 5, redistLab == "6" ~ 6,
+                               redistLab == "7" ~ 7, redistLab == "8" ~ 8,
+                               redistLab == "9" ~ 9, 
+                               redistLab == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistLD = case_when(redistLD== "Government should try to make incomes equal" ~ 0,
+                              redistLD == "1" ~ 1, redistLD== "2" ~ 2,
+                              redistLD == "3" ~ 3, redistLD == "4" ~ 4,
+                              redistLD == "5" ~ 5,redistLD == "6" ~ 6,
+                              redistLD == "7" ~ 7,redistLD == "8" ~ 8,
+                              redistLD == "9" ~ 9, 
+                              redistLD == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistPC = case_when(redistPC== "Government should try to make incomes equal" ~ 0,
+                              redistPC == "1" ~ 1, redistPC== "2" ~ 2,
+                              redistPC == "3" ~ 3, redistPC == "4" ~ 4,
+                              redistPC == "5" ~ 5, redistPC == "6" ~ 6,
+                              redistPC == "7" ~ 7, redistPC == "8" ~ 8,
+                              redistPC == "9" ~ 9, 
+                              redistPC == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistSNP = case_when(redistSNP== "Government should try to make incomes equal" ~ 0,
+                               redistSNP == "1" ~ 1, redistSNP== "2" ~ 2, 
+                               redistSNP == "3" ~ 3, redistSNP == "4" ~ 4,
+                               redistSNP == "5" ~ 5, redistSNP == "6" ~ 6,
+                               redistSNP == "7" ~ 7, redistSNP == "8" ~ 8,
+                               redistSNP == "9" ~ 9, 
+                               redistSNP == "Government should be less concerned about equal incomes" ~ 10))
+
+BES11 <- BES11 %>%
+  mutate(redistUKIP = case_when(redistUKIP== "Government should try to make incomes equal" ~ 0,
+                                redistUKIP == "1" ~ 1, redistUKIP== "2" ~ 2,
+                                redistUKIP == "3" ~ 3, redistUKIP == "4" ~ 4,
+                                redistUKIP == "5" ~ 5, redistUKIP == "6" ~ 6,
+                                redistUKIP == "7" ~ 7, redistUKIP == "8" ~ 8,
+                                redistUKIP == "9" ~ 9, 
+                                redistUKIP == "Government should be less concerned about equal incomes" ~ 10))
+
+# Find average perceived opposition to redistribution by party for Wave 11:
+
+con11 <- mean(BES11$redistCon, na.rm = TRUE)
+green11 <- mean(BES11$redistGreen, na.rm = TRUE)
+lab11 <- mean(BES11$redistLab, na.rm = TRUE)
+ld11 <- mean(BES11$redistLD, na.rm = TRUE)
+pc11 <- mean(BES11$redistPC, na.rm = TRUE)
+snp11 <- mean(BES11$redistSNP, na.rm = TRUE)
+ukip11 <- mean(BES11$redistUKIP, na.rm = TRUE)
+
+## Create self-constructed dataframe of perception scores based on above code):
+
+party7 <- c("Conservative", "Green", "Labour", "Lib Dem", "Plaid Cymru", "SNP",
+           "UKIP")
+perceived_opp7 <- c(con7, green7, lab7, ld7, pc7, snp7, ukip7)
+redistribution7 <- data.frame(party7, perceived_opp7)
+
+# And finally, let's make Figure 2: 
+
+# Plot Wave 7 values of opposition to redistribution by party:
+g7 <- ggplot(redistribution7, aes(y = perceived_opp7, 
+                         x = party7)) + 
+  geom_bar(stat = "identity", width = 0.5, color = "black", fill = "blue") +
+  stat_smooth(method ="lm", se = FALSE) +  
+  theme_bw() +
+  xlab("Party") + 
+  ylab("Perceived Opposition to Redistribution (Wave 7)")
+
+g7
+
+# And now, the same thing for Wave 11:
+
+party11 <- c("Conservative", "Green", "Labour", "Lib Dem", "Plaid Cymru", "SNP",
+           "UKIP")
+perceived_opp11 <- c(con11, green11, lab11, ld11, pc11, snp11, ukip11)
+redistribution11 <- data.frame(party11, perceived_opp11)
+
+# Plot Wave 11 values of opposition to redistribution by party:
+
+g11 <- ggplot(redistribution11,
+              aes(y = perceived_opp11, x = party11)) +
+  geom_bar(stat ="identity", width=0.5, color="black", fill="blue") +
+  stat_smooth(method = "lm",se = FALSE) + 
+  theme_bw() +
+  xlab("Party") + 
+  ylab("Perceived Opposition to Redistribution (Wave 11)") 
+
+g11
 
 ```
 
