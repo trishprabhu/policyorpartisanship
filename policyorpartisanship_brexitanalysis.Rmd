@@ -744,3 +744,148 @@ g11
 
 ```
 
+### But has changing partisanship influenced actual voting?
+```{r}
+# From the paper: "Although we cannot identify causality for changes in electoral voting, we 
+# analyze actual voting behavior to examine the broader implications of the 
+# Brexit-induced change in Conservative positioning. We assess the relationship 
+# between Euroskepticism and voting in the 2015 and 2017 elections by drawing on 
+# data from British Election Study Wave 6 (conducted in May 2015, in the 
+# immediate aftermath of the 2015 election) and Wave 13 (conducted after the 
+# June 2017 election)."
+
+# Let's start with some cleaning:
+
+# Let's begin creating a race variable:
+
+BES6$white <- ifelse(BES6$profile_ethnicity == "White British" | BES6$profile_ethnicity == "Any other white background", 1, 0)
+
+# Let's also recode EU integration:
+
+BES6 <- BES6 %>%
+  mutate(EUIntegrationCon = case_when(EUIntegrationCon == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationCon == "1" ~ 1, EUIntegrationCon == "2" ~ 2,
+                                      EUIntegrationCon == "3" ~ 3, EUIntegrationCon == "4" ~ 4,
+                                      EUIntegrationCon == "5" ~ 5, EUIntegrationCon == "6" ~ 6,
+                                      EUIntegrationCon == "7" ~ 7, EUIntegrationCon == "8" ~ 8,
+                                      EUIntegrationCon == "9" ~ 9,
+                                      EUIntegrationCon == "Protect our independence" ~ 10))
+BES6 <- BES6 %>%
+  mutate(EUIntegrationLab = case_when(EUIntegrationLab == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationLab == "1" ~ 1, EUIntegrationLab == "2" ~ 2,
+                                      EUIntegrationLab == "3" ~ 3, EUIntegrationLab == "4" ~ 4,
+                                      EUIntegrationLab == "5" ~ 5, EUIntegrationLab == "6" ~ 6,
+                                      EUIntegrationLab == "7" ~ 7, EUIntegrationLab == "8" ~ 8,
+                                      EUIntegrationLab == "9" ~ 9,
+                                      EUIntegrationLab == "Protect our independence" ~ 10))
+
+BES6$generalElectionVote15 <- BES6$generalElectionVote
+BES6$EUIntegrationLab15 <- BES6$EUIntegrationLab
+BES6$EUIntegrationCon15 <- BES6$EUIntegrationCon
+
+BES6 <- BES6 %>%
+  mutate(EUIntegrationSelf = case_when(EUIntegrationSelf == "Unite fully with the European Union" ~ 0,
+                                       EUIntegrationSelf == "1" ~ 1, EUIntegrationSelf == "2" ~ 2,
+                                       EUIntegrationSelf == "3" ~ 3, EUIntegrationSelf == "4" ~ 4,
+                                       EUIntegrationSelf == "5" ~ 5, EUIntegrationSelf == "6" ~ 6,
+                                       EUIntegrationSelf == "7" ~ 7, EUIntegrationSelf == "8" ~ 8,
+                                       EUIntegrationSelf == "9" ~ 9, 
+                                       EUIntegrationSelf == "Protect our independence" ~ 10))
+BES6$EUIntegrationSelf6 <- BES6$EUIntegrationSelf
+
+
+
+# Conservative vote variable:
+
+BES6$Convote <- ifelse(BES6$generalElectionVote15 == "Conservative", 1, 0)
+
+
+# Conservative subset:
+
+BES6con <- BES6[BES6$Convote == 1,]
+
+# Non-Conservative subset:
+
+BES6notcon <- BES6[BES6$Convote == 0,]
+
+# Vote choice variable:
+
+BES13$generalElectionVote17 <- BES13$generalElectionVote
+
+# Once again, recode integration values -- this time, for Wave 13:
+
+BES13 <- BES13 %>%
+  mutate(EUIntegrationSelf = case_when(EUIntegrationSelf == "Unite fully with the European Union"~ 0,
+                                       EUIntegrationSelf == "1" ~ 1, EUIntegrationSelf == "2" ~ 2,
+                                       EUIntegrationSelf == "3" ~ 3, EUIntegrationSelf == "4" ~ 4,
+                                       EUIntegrationSelf == "5" ~ 5, EUIntegrationSelf == "6" ~ 6,
+                                       EUIntegrationSelf == "7" ~ 7, EUIntegrationSelf == "8" ~ 8,
+                                       EUIntegrationSelf == "9" ~ 9, 
+                                       EUIntegrationSelf == "Protect our independence" ~ 10))
+BES13$EUIntegrationSelf13 <- BES13$EUIntegrationSelf
+
+BES13 <- BES13 %>%
+  mutate(EUIntegrationCon = case_when(EUIntegrationCon == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationCon == "1" ~ 1, EUIntegrationCon == "2" ~ 2,
+                                      EUIntegrationCon == "3" ~ 3, EUIntegrationCon == "4" ~ 4,
+                                      EUIntegrationCon == "5" ~ 5, EUIntegrationCon == "6" ~ 6,
+                                      EUIntegrationCon == "7" ~ 7, EUIntegrationCon == "8" ~ 8,
+                                      EUIntegrationCon == "9" ~ 9,
+                                      EUIntegrationCon == "Protect our independence" ~ 10))
+
+BES13 <- BES13 %>%
+  mutate(EUIntegrationLab = case_when(EUIntegrationLab == "Unite fully with the European Union" ~ 0,
+                                      EUIntegrationLab == "1" ~ 1, EUIntegrationLab == "2" ~ 2,
+                                      EUIntegrationLab == "3" ~ 3, EUIntegrationLab == "4" ~ 4,
+                                      EUIntegrationLab == "5" ~ 5, EUIntegrationLab == "6" ~ 6,
+                                      EUIntegrationLab == "7" ~ 7, EUIntegrationLab == "8" ~ 8,
+                                      EUIntegrationLab == "9" ~ 9, 
+                                      EUIntegrationLab == "Protect our independence" ~ 10))
+
+BES13$generalElectionVote17 <- BES13$generalElectionVote
+BES13$EUIntegrationLab17 <- BES13$EUIntegrationLab
+BES13$EUIntegrationCon17 <- BES13$EUIntegrationCon
+
+# Merge the people who voted Con in 2015:
+
+BES13con <- merge(BES6con, BES13, by = "id")
+BES13con$Conchange <- BES13con$EUIntegrationCon17 - BES13con$EUIntegrationCon15
+BES13con$voteswitcher  <- ifelse(BES13con$generalElectionVote17 != BES13con$generalElectionVote15, 1, 0)
+
+# Run the regressions we'll include in Table 6 (below)!
+
+# From the paper: "We first examine survey respondents who reported voting for 
+# the Conservatives in the 2015 election. In Table 5, we test whether a 
+# Conservative voter’s level of Euroskepticism in 2015 is related to the 
+# probability the voter decides to back the Conservatives in 2017.
+
+GG <- lm(voteswitcher ~ EUIntegrationSelf6, data = BES13con)
+HH <- lm(voteswitcher ~ EUIntegrationSelf6 * Conchange, data = BES13con)
+II <- lm(voteswitcher ~ EUIntegrationSelf6 * Conchange + age + gender.x + 
+           white + country.x, data = BES13con)
+
+```
+
+
+```{r, results = 'asis'}
+
+stargazer(GG, HH, II, 
+          title = "Euroskepticism and Defecting from Conservatives",
+          no.space = TRUE,
+          covariate.labels = c("2015 Euroskepticism", 
+                               "Perceived Change in Conservative Euroskepticism",
+                               "Age",
+                               "Female",
+                               "White",
+                               "Scotland",
+                               "Wales",
+                               "Interaction",
+                               "Constant"),
+          dep.var.labels   = "Defected from Conservatives",
+          font.size = "small",
+          header = FALSE,
+          star.cutoffs = c(0.05, 0.01, 0.001))
+
+```
+
+
