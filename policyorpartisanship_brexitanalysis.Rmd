@@ -447,6 +447,8 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
   xlab("Perceived Change in Conservative Euroskepticism") +
   ylab("Change in Personal Euroskepticism") 
 
+g
+
 # From the paper: "The intensity of Conservative partisanship determined the 
 # extent to which voters followed the party’s evolving position on the EU – or, 
 # more precisely, their perception of the party’s evolving position."
