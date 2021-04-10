@@ -5,7 +5,10 @@ date: "4/28/2021"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+# I. Overview of Original Paper
+
+# II. Replicated Results and Discussion
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 # Load libraries:
@@ -32,8 +35,9 @@ BES13 <- read.dta("~/Downloads/BES2017_W13_v1.5.dta")
 
 ```
 
+```{r, echo = FALSE}
+
 ### Let's begin by cleaning the data:
-```{r}
 
 # Recode EU integration values:
 
@@ -97,9 +101,9 @@ BES9 <- BES9 %>%
 
 ```
 
+```{r, echo = FALSE}
 
 ### Let's now do some analyses and replication of figures:
-```{r}
 
 # Let's analyze the strength of our assumption that there was a sudden change
 # in Conservative party positioning, unaffected by other important omitted 
@@ -117,7 +121,7 @@ lab_after <-mean(BES9$EUIntegrationLab, na.rm=TRUE)
 
 #  Percentage change in Conservative party positioning:
 
-(con_after - con_before)/con_before
+change <- (con_after - con_before)/con_before
 
 # From the paper: "Only the conservatives exhibited a sudden change in
 # positioning on Brexit"; here, we see the average perceived Euroskepticism
@@ -125,8 +129,9 @@ lab_after <-mean(BES9$EUIntegrationLab, na.rm=TRUE)
 
 ```
 
+```{r, echo = FALSE}
+
 ### Let's create Table 1:
-```{r}
 
 # And now, for some other relevant cleaning:
 
@@ -173,7 +178,6 @@ merged$partyswitcher <- ifelse(merged$partyId8 != merged$partyId9, 1, 0)
 # of Euroskepticism, on a 0 - 10 scale:
 
 table1reg <- lm(partyswitcher ~ EUIntegrationSelf8, data = merged)
-summary(table1reg)
 
 # Let's create a variable that represents the change (post-referendum) in 
 # perceived Euroskepticism of Conservatives:
@@ -184,7 +188,6 @@ merged$Conchange <- merged$EUIntegrationCon9 - merged$EUIntegrationCon8
 
 intreg1 <- lm(partyswitcher ~ EUIntegrationSelf8 * Conchange, 
               data = merged)
-summary(intreg1)
 
 # From the paper (Page 11): the interaction is negative and significant: less 
 # Euroskeptic Conservatives who perceive that the party has become increasingly 
@@ -196,10 +199,10 @@ merged$country.x <- as.factor(merged$country.x)
 
 intreg1a <- lm(partyswitcher ~ EUIntegrationSelf8 * Conchange + age.x + gender.x 
                + white + country.x, data = merged)
-summary(intreg1a)
+
 ```
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
 
 # And now, let's create our table:
 
@@ -221,7 +224,7 @@ stargazer(table1reg, intreg1, intreg1a,
 
 ```
 
-```{r}
+```{r, echo = FALSE}
 
 # From the paper (Page 11): "of those who identified as Conservative before the 
 # referendum, 9.0 percent of respondents with pre-referendum Euroskepticism 
@@ -235,14 +238,16 @@ merge45 <- merged[merged$EUIntegrationSelf8=="5" | merged$EUIntegrationSelf8=="4
 merge23 <- merged[merged$EUIntegrationSelf8=="3" | merged$EUIntegrationSelf8=="2",]
 merge01 <- merged[merged$EUIntegrationSelf8=="1" | merged$EUIntegrationSelf8=="0",]
 
-mean(merge45$partyswitcher,na.rm=TRUE)
-mean(merge23$partyswitcher,na.rm=TRUE)
-mean(merge01$partyswitcher,na.rm=TRUE)
+mean45 <- mean(merge45$partyswitcher,na.rm=TRUE)
+mean23 <- mean(merge23$partyswitcher,na.rm=TRUE)
+mean01 <- mean(merge01$partyswitcher,na.rm=TRUE)
 
 ```
 
+```{r, echo = FALSE}
+
 ### Let's create Table 2:
-```{r}
+
 # Let's now subset to pre-referendum non-Conservatives:
 
 BES8notcons<- BES8[BES8$partyId != "Conservative",] 
@@ -257,13 +262,12 @@ merged2$switchtocons <- ifelse(merged2$partyId9 == "Conservative", 1, 0)
 
 # What's the average?
 
-mean(merged2$switchtocons)
+avg <- mean(merged2$switchtocons)
 
 # Let's regress folks' self-reported pre-referendum level of Euroskepticism, on
 # a scale from 0 - 10, on those who switch to Conservative post-referendum.
 
 table2reg <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8)
-summary(table2reg)
 
 # Let's create a variable that represents the change (post-referendum) in 
 # perceived Euroskepticism of Conservatives:
@@ -273,14 +277,12 @@ merged2$Conchange <- merged2$EUIntegrationCon9 - merged2$EUIntegrationCon8
 # And include that variable as an interaction:
 
 intreg2 <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conchange)
-summary(intreg2)
 
 # And now, let's throw everything in again:
 
 intreg2a <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conchange 
               + merged2$age.x + merged2$gender.x + merged2$white + 
                 as.factor(merged2$country.x))
-summary(intreg2a)
 
 # From the paper: "A one-point increase in pre-referendum Euroskepticism 
 # generates a .7 percent increase in the probability of switching loyalties to 
@@ -291,7 +293,7 @@ summary(intreg2a)
 
 ```
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
 
 # And finally, let's create Table 2, with everything:
 
@@ -315,7 +317,7 @@ stargazer(table2reg, intreg2, intreg2a,
 ```
 
 
-```{r}
+```{r, echo = FALSE}
 
 # Let's look at the percent switched for various groups of Euroskepticism 
 # scores:
@@ -324,9 +326,9 @@ merge256 <- merged2[merged2$EUIntegrationSelf8 =="5" | merged2$EUIntegrationSelf
 merge278 <- merged2[merged2$EUIntegrationSelf8 =="7" | merged2$EUIntegrationSelf8 =="8",]
 merge2910 <- merged2[merged2$EUIntegrationSelf8 =="9" | merged2$EUIntegrationSelf8 =="10",]
 
-mean(merge256$switchtocons,na.rm=TRUE)
-mean(merge278$switchtocons,na.rm=TRUE)
-mean(merge2910$switchtocons,na.rm=TRUE)
+mean256 <- mean(merge256$switchtocons,na.rm=TRUE)
+mean278 <- mean(merge278$switchtocons,na.rm=TRUE)
+mean2910 <- mean(merge2910$switchtocons,na.rm=TRUE)
 
 # From the paper: "Of those respondents who did not identify as Conservative 
 # before the referendum, 2.8 percent with Euroskepticism scores of 5 or 6, 5.0 
@@ -337,8 +339,10 @@ mean(merge2910$switchtocons,na.rm=TRUE)
 
 ```
 
+```{r, echo = FALSE}
+
 ### But do strong partisans (e.g. very committed to Conservative) change their policy preferences?
-```{r}
+
 # From the paper: "In Figure 1, we look at whether stronger Conservative 
 # partisans were more likely to become Euroskeptic following the sudden, as-if 
 # random change in Conservative positioning on Brexit than less staunch 
@@ -358,15 +362,13 @@ mergenotstrong <- merged[merged$partyIdStrength.x!="Very strong",]
 
 intreg3B <- lm(Euroskepticismchange ~ Conchange + gender.x + age.x + white 
                + country.x, data = mergestrong)
-summary(intreg3B) 
 
 intreg3A <- lm(Euroskepticismchange ~ Conchange + gender.x + age.x + white 
                + country.x, data = mergenotstrong)
-summary(intreg3A)
 
 ```
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
 
 # And finally, our table:
 
@@ -384,6 +386,7 @@ stargazer(intreg3A, intreg3B,
           column.labels   = c("Moderate Conservatives", 
                               "Very Strong Conservatives"),
           model.numbers = FALSE,
+          header = FALSE,
           star.cutoffs = c(0.05, 0.01,0.001))
 
 # From the paper: There is a clear, statistically significant, positive 
@@ -398,8 +401,9 @@ stargazer(intreg3A, intreg3B,
 
 ```
 
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
 ### Let's create Figure 1 (which corresponds with Table 3):
-```{r}
 
 # First, let's merge Waves 8 and 9:
 
@@ -424,13 +428,13 @@ bigmergever <- bigmerge[bigmerge$Partisan == "Very Strong Conservative",]
 
 # What percentage of each group switched?
 
-mean(bigmergenon$Conchange, na.rm = TRUE)
-mean(bigmergemod$Conchange, na.rm = TRUE)
-mean(bigmergever$Conchange, na.rm = TRUE)
+# mean(bigmergenon$Conchange, na.rm = TRUE)
+# mean(bigmergemod$Conchange, na.rm = TRUE)
+# mean(bigmergever$Conchange, na.rm = TRUE)
 
-mean(bigmergenon$Euroskepticismchang, na.rm = TRUE)
-mean(bigmergemod$Euroskepticismchang, na.rm = TRUE)
-mean(bigmergever$Euroskepticismchang, na.rm = TRUE)
+# mean(bigmergenon$Euroskepticismchang, na.rm = TRUE)
+# mean(bigmergemod$Euroskepticismchang, na.rm = TRUE)
+# mean(bigmergever$Euroskepticismchang, na.rm = TRUE)
 
 bigmerge$Partisan <- factor(bigmerge$Partisan, levels = c("Non-Conservative", 
                                                           "Moderate Conservative", 
@@ -445,7 +449,11 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
   stat_smooth(method = "lm",se = TRUE) +
   theme_bw() +
   xlab("Perceived Change in Conservative Euroskepticism") +
-  ylab("Change in Personal Euroskepticism") 
+  ylab("Change in Personal Euroskepticism")
+
+```
+
+```{r, echo = FALSE, warnings = FALSE, message = FALSE}
 
 g
 
@@ -454,8 +462,12 @@ g
 # more precisely, their perception of the party’s evolving position."
 
 ```
-### As previously non-Conservative Euroskeptics flocked to the party, what happened to their views on other issues?
-```{r}
+
+```{r, , echo = FALSE, warning = FALSE, message = FALSE}
+
+### As previously non-Conservative Euroskeptics flocked to the party, what 
+# happened to their views on other issues?
+
 # From the paper: "We find that joining the Conservatives led voters to update 
 # their views on economic issues to bring them into line with the positions of 
 # their new party; party affiliation, we contend, influenced the subsequent 
@@ -510,7 +522,6 @@ merged2$redistchange <- merged2$redistSelf11 - merged2$redistSelf7
 
 table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x + 
                   country.x, data = merged2)
-summary(table4reg)
 
 # People who were part of UKIP (should see negligible change, as discussed in
 # the paper, as UKIP was already very opposed to redistribution):
@@ -518,7 +529,6 @@ summary(table4reg)
 regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
               + country.x, data = merged2, 
               partyId8 == "United Kingdom Independence Party (UKIP)")
-summary(regUKIP)
 
 # People who were not part of UKIP -- from the paper: "the effect of joining the 
 # Conservatives on redistributive attitudes should be stronger among respondents 
@@ -527,12 +537,11 @@ summary(regUKIP)
 regnonUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
                  + country.x, data = merged2, 
                  partyId8 != "United Kingdom Independence Party (UKIP)")
-summary(regnonUKIP)
 
 ```
 
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
 
 # Let's create Table 4:
 
@@ -549,12 +558,13 @@ stargazer(table4reg, regnonUKIP, regUKIP, title = "Joining the Conservatives and
           column.labels   = c("Overall", 
                               "Non-UKIP",
                               "UKIP"),
+          header = FALSE,
           model.numbers = FALSE,
           star.cutoffs = c(0.05, 0.01,0.001))
 
 ```
 
-```{r}
+```{r, echo = FALSE}
 
 # Let's make the corresponding Figure 2:
 
@@ -723,8 +733,6 @@ g7 <- ggplot(redistribution7, aes(y = perceived_opp7,
   xlab("Party") + 
   ylab("Perceived Opposition to Redistribution (Wave 7)")
 
-g7
-
 # And now, the same thing for Wave 11:
 
 party11 <- c("Conservative", "Green", "Labour", "Lib Dem", "Plaid Cymru", "SNP",
@@ -740,14 +748,22 @@ g11 <- ggplot(redistribution11,
   stat_smooth(method = "lm",se = FALSE) + 
   theme_bw() +
   xlab("Party") + 
-  ylab("Perceived Opposition to Redistribution (Wave 11)") 
+  ylab("Perceived Opposition to Redistribution (Wave 11)")
 
+```
+
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+
+g7
 g11
 
 ```
 
+```{r, echo = FALSE}
+
 ### But has changing partisanship influenced actual voting?
-```{r}
+
 # From the paper: "Although we cannot identify causality for changes in electoral voting, we 
 # analyze actual voting behavior to examine the broader implications of the 
 # Brexit-induced change in Conservative positioning. We assess the relationship 
@@ -854,7 +870,7 @@ BES13con <- merge(BES6con, BES13, by = "id")
 BES13con$Conchange <- BES13con$EUIntegrationCon17 - BES13con$EUIntegrationCon15
 BES13con$voteswitcher  <- ifelse(BES13con$generalElectionVote17 != BES13con$generalElectionVote15, 1, 0)
 
-# Run the regressions we'll include in Table 6 (below)!
+# Run the regressions we'll include in Table 5 (below)!
 
 # From the paper: "We first examine survey respondents who reported voting for 
 # the Conservatives in the 2015 election. In Table 5, we test whether a 
@@ -869,7 +885,9 @@ II <- lm(voteswitcher ~ EUIntegrationSelf6 * Conchange + age + gender.x +
 ```
 
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
+
+# And now, finally, let's create Table 5:
 
 stargazer(GG, HH, II, 
           title = "Euroskepticism and Defecting from Conservatives",
@@ -884,10 +902,67 @@ stargazer(GG, HH, II,
                                "Interaction",
                                "Constant"),
           dep.var.labels   = "Defected from Conservatives",
-          font.size = "small",
+          font.size = "tiny",
           header = FALSE,
           star.cutoffs = c(0.05, 0.01, 0.001))
 
+# From the paper: "We find a consistent negative relationship between 2015 
+# Euroskepticism and the likelihood of defecting from the (now more Euroskeptic) 
+# Conservatives in 2017. The effects are substantively large: a one-unit 
+# increase in Euroskepticism on the ten-point scale (in 2015) makes someone 2.9 
+# percent less likely to abandon the Conservatives in the 2017 election."
+
 ```
 
+```{r, echo = FALSE}
 
+### What about non-Conservatives?
+
+# From the paper: "Next, we examine survey respondents who did not vote for the 
+# Conservatives in the 2015 election." 
+
+# People who did not vote for the Conservatives in the 2015 election:
+
+BES13notcon <- merge(BES6notcon, BES13, by = "id")
+BES13notcon$Conchange <- BES13notcon$EUIntegrationCon17 - BES13notcon$EUIntegrationCon15
+BES13notcon$switchtocon <- ifelse(BES13notcon$generalElectionVote17 == "Conservative", 
+                                  1, 0)
+
+G <- lm(switchtocon ~ EUIntegrationSelf6, data = BES13notcon)
+H <- lm(switchtocon ~ EUIntegrationSelf6 * Conchange, data = BES13notcon)
+I <-  lm(switchtocon ~ EUIntegrationSelf6 * Conchange + age + gender.x + white 
+         + as.factor(country.x), data = BES13notcon)
+
+```
+
+```{r, results = 'asis', echo = FALSE}
+
+stargazer(G, H, I, 
+          title = "Euroskepticism and Switching Vote to Conservatives",
+          no.space = TRUE, 
+          covariate.labels = c("2015 Euroskepticism", 
+                               "Perceived Change in Conservative Euroskepticism",
+                               "Age",
+                               "Female",
+                               "White",
+                               "Scotland",
+                               "Wales",
+                               "Interaction",
+                               "Constant"),
+          dep.var.labels   = "Switched to Conservatives",
+          font.size = "tiny",
+          header = FALSE,
+          star.cutoffs = c(0.05, 0.01,0.001))
+
+# From the paper: "Using Ordinary Least Squares regression (displayed in Table 
+# 6), we find a clear positive relationship between their level of 
+# Euroskepticism in 2015 and the probability they voted for the Conservatives in 
+# 2017. A one-unit increase in 2015 Euroskepticism (on the ten-point scale) 
+# makes a non-Conservative as much as 4.7 percent more likely to vote for the 
+# Conservatives in 2017. The consequences of the Conservative Party’s embrace of 
+# Brexit, this analysis suggests, extend beyond voters’ partisan identities and 
+# self-reported policy preferences to their behavior in the voting booth."
+
+```
+
+# III. Proposed Extension
