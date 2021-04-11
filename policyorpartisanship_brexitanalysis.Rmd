@@ -5,11 +5,46 @@ date: "4/28/2021"
 output: pdf_document
 ---
 
-# I. Overview of Original Paper
+# I. Introduction: Overview of Original Paper
 
+This replication examines the paper "Policy or Partisanship: Replicating Results 
+From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
+authors aim to explore one key question: "are voters motivated by policy
+preferences, or partisan identities?" The authors answer the question in the
+context of the UK's political system, exploiting the UK’s Brexit referendum -- 
+which caused an abrupt change in the British Conservative Party’s stance on 
+leaving the European Union, and via a vote “so narrow that it was more or less a 
+coin flip.” The authors’ methodology is relatively simple: they employ an 
+uninterrupted time-series design, examining panel survey data from the British 
+Election Study to compare referendum attitudes and party affiliation in the data 
+immediately before and after the referendum (“Wave 8” and “Wave 9” data, 
+respectively). Given the brief gap between the 2 waves, and their ability to 
+identify/eliminate potential confounders (e.g. a change in the Labour Party’s 
+stance on Brexit), they assume their identification strategy is sound. 
+They ultimately fit and run several linear regression models that find that 
+voters are most motivated by policy: following Brexit, “Europhilic” (citizens 
+that supported remaining in the EU) Conservatives disaffiliated from the 
+Conservative party; indeed, the less Euroskeptic a Conservative was 
+pre-referendum, the more likely they were to disaffiliate. The "policy story"
+holds when examining pre-referendum non-Conservatives; here, the authors
+determine that the more Euroskeptic pre-referendum non-Conservatives were,
+the more likely they were to switch to the Conservative Party. 
 
+The authors also explore various related questions, such as whether newly minted
+Conservative voters also updated their stances on other policy issues to bring
+them further into line with the Conservative party; looking specifically at the
+issue of redistribution, they find that this is indeed the case. The authors
+also look at whether.. The authors' other results/conclusions are discussed
+in detail in the next section.
+
+In this report, I replicate the authors' main results (6 tables and 2 figures),
+providing my analyses/interpretation, and then, consider ways to extend the
+authors' work, in this case, by employing another regression method particularly
+suited to analyses with binary outcomes (such as switching) -- logistic 
+regression.
 
 # II. Replicated Results and Discussion
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
