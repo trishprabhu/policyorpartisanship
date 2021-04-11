@@ -5,6 +5,14 @@ date: "4/28/2021"
 output: pdf_document
 ---
 
+### Acknowledgements
+
+I'd like to thank Professor Jeff Gill, Le Bao, and the course staff of Gov 52 
+for their unwavering support as I've pursued this project -- my immense 
+gratitude to all of you.
+
+Question for Le: How do I include footnotes in R Markdown?
+
 # I. Introduction: Overview of Original Paper
 
 This replication examines the paper "Policy or Partisanship: Replicating Results 
@@ -30,18 +38,22 @@ holds when examining pre-referendum non-Conservatives; here, the authors
 determine that the more Euroskeptic pre-referendum non-Conservatives were,
 the more likely they were to switch to the Conservative Party. 
 
-The authors also explore various related questions, such as whether newly minted
-Conservative voters also updated their stances on other policy issues to bring
-them further into line with the Conservative party; looking specifically at the
-issue of redistribution, they find that this is indeed the case. The authors
-also look at whether.. The authors' other results/conclusions are discussed
-in detail in the next section.
+The authors also explore various related questions, such as whether the 
+intensity of pre-referendum Conservatives' partisanship influenced their to
+what degree they followed their party as it adopted a new position; they 
+ultimately find that the positive relationship between Conservatives' perception
+of their party's position on Brexit and their position on Brexit is strongest
+for the most partisan Conservatives. The authors also look at whether newly 
+minted Conservative voters also updated their stances on other policy issues to 
+further align themselves with the Conservative party; looking specifically at 
+the issue of redistribution, they find that this is indeed the case. The authors' 
+other results/conclusions are discussed in detail in the next section.
 
-In this report, I replicate the authors' main results (6 tables and 2 figures),
-providing my analyses/interpretation, and then, consider ways to extend the
-authors' work, in this case, by employing another regression method particularly
-suited to analyses with binary outcomes (such as switching) -- logistic 
-regression.
+In the next section, I replicate the authors' main results (6 tables and 2 
+figures), providing my analyses/interpretation, and then, in the third section,
+consider ways to extend the authors' work, in this case, by employing another 
+regression method particularly suited to analyses with binary outcomes (such as 
+switching) -- logistic regression.
 
 # II. Replicated Results and Discussion
 
@@ -974,6 +986,11 @@ I <-  lm(switchtocon ~ EUIntegrationSelf6 * Conchange + age + gender.x + white
 
 ```{r, results = 'asis', echo = FALSE}
 
+# And finally, Table 6:
+
+# Question for Le: How do I get this above the start of the "Propoesed Extension"
+# section?
+
 stargazer(G, H, I, 
           title = "Euroskepticism and Switching Vote to Conservatives",
           no.space = TRUE, 
@@ -1028,7 +1045,7 @@ intreg1a_logistic <- glm(partyswitcher ~ EUIntegrationSelf8 * Conchange + age.x
 ```{r, results = 'asis'}
 
 stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic, 
-          title = "Euroskepticism and Defection from the Conservatives",
+          title = "Euroskepticism and Defection from the Conservatives (Logistic)",
           covariate.labels = c("Pre-Referendum Euroskepticism", 
                                "Perceived Change in Conservative Euroskepticism", 
                                "Age",
@@ -1079,3 +1096,4 @@ exp(table1reg_logistic$coefficients[])
 
 ```
 
+# IV. Bibliography
