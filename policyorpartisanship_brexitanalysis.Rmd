@@ -39,21 +39,21 @@ determine that the more Euroskeptic pre-referendum non-Conservatives were,
 the more likely they were to switch to the Conservative Party. 
 
 The authors also explore various related questions, such as whether the 
-intensity of pre-referendum Conservatives' partisanship influenced their to
-what degree they followed their party as it adopted a new position; they 
-ultimately find that the positive relationship between Conservatives' perception
-of their party's position on Brexit and their position on Brexit is strongest
-for the most partisan Conservatives. The authors also look at whether newly 
-minted Conservative voters also updated their stances on other policy issues to 
-further align themselves with the Conservative party; looking specifically at 
-the issue of redistribution, they find that this is indeed the case. The authors' 
-other results/conclusions are discussed in detail in the next section.
+intensity of pre-referendum Conservatives' partisanship influenced to what 
+degree they followed their party as it adopted a new position; they ultimately 
+find that the positive relationship between Conservatives' perception of their 
+party's position on Brexit and their position on Brexit is strongest for the 
+most partisan Conservatives. The authors also look at whether newly minted 
+Conservative voters also updated their stances on other policy issues to further 
+align themselves with the Conservative party; looking specifically at the issue
+of redistribution, they find that this is indeed the case. The authors' other 
+results/conclusions are discussed in detail in the next section.
 
 In the next section, I replicate the authors' main results (6 tables and 2 
-figures), providing my analyses/interpretation, and then, in the third section,
+figures), providing my analyses/interpretation. Then, in the third section, I
 consider ways to extend the authors' work, in this case, by employing another 
 regression method particularly suited to analyses with binary outcomes (such as 
-switching) -- logistic regression.
+switching parties) -- logistic regression.
 
 # II. Replicated Results and Discussion
 
