@@ -7,6 +7,8 @@ output: pdf_document
 
 # I. Overview of Original Paper
 
+
+
 # II. Replicated Results and Discussion
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -1006,9 +1008,7 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
           font.size = "tiny",
           header = FALSE) 
 
-summary(intreg1a_logistic)
-
-# Let's look at the null and residual deviance:
+# Let's look at the null and residual deviance for our last model:
 
 pchisq(3209.2 - 3176.4, 6215 - 6207, lower = FALSE)
 
@@ -1025,7 +1025,7 @@ exp(table1reg_logistic$coefficients[])
 
 # Initial attempt at interpretation of Table 1 logistic regressions:
 
-# Here, we calculate the odds ratio of the various coefficients; the odds
+# Here, for each model, we calculate the odds ratio of the various coefficients; the odds
 # ratio represents: P/1-P (or the probability of leaving the Conservatives/the
 # probability of not leaving the Conservatives). With that said, if the value of
 # an odds ratio is > 1, then the ratio suggests the predictor is associated with
@@ -1033,11 +1033,14 @@ exp(table1reg_logistic$coefficients[])
 # that effect can be directly compared via the numbers, with adjustment for 
 # variation via multiplication by the standard deviation.
 
-# Let's consider the most simple regression: 
+# Let's consider the most simple regression/model: 
 
-# The odds ratio for female is 0.9672463; this suggests that a one-unit increase
+# The odds ratio for EUIntegrationSelf8 is 0.9672463; this suggests that a one-unit increase
 # in pre-referendum Euroskepticism is associated with a decrease in the
-# probability of defection from the Conservatives (as we would predict).
+# probability of defection from the Conservatives (as we would predict, given
+# that the Conservatives adopt an anti-integration view post-referendum).
+
+#...
 
 ```
 
