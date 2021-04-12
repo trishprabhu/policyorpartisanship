@@ -11,11 +11,9 @@ I'd like to thank Professor Jeff Gill, Le Bao, and the course staff of Gov 52
 for their unwavering support as I've pursued this project -- my immense 
 gratitude to all of you.
 
-Question for Le: How do I include footnotes in R Markdown?
+Note for Trisha: Footnotes are put inside the square brackets after a caret ^[], e.g., ^[This is a footnote.]
 
 # I. Introduction: Overview of Original Paper
-
-Question for Le: Does this look okay?
 
 This replication examines the paper "Policy or Partisanship: Replicating Results 
 From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
@@ -992,6 +990,7 @@ I <-  lm(switchtocon ~ EUIntegrationSelf6 * Conchange + age + gender.x + white
 
 # Question for Le: How do I get this above the start of the "Proposed Extension"
 # section?
+# https://stackoverflow.com/questions/55317759/how-to-keep-a-table-here-defnitely-in-r-markdown
 
 stargazer(G, H, I, 
           title = "Euroskepticism and Switching Vote to Conservatives",
@@ -1076,6 +1075,11 @@ exp(table1reg_logistic$coefficients[])
 # Question for Le: How should I interpret/consider the logistic regression
 # approach -- in particular, how should I compare it to the "regular" lm
 # approach utilized in the paper?
+
+# Can plot some graphs -- look at the magnitudes across the scales of indep.
+# variable. 
+# Can do some inverse-logit/predict -- can define high level and a low level; compare
+# 1 to 2, 2 to 3, etc. -- and discuss your findings in your report.
 
 # Initial attempt at interpretation of Table 1 logistic regressions:
 
