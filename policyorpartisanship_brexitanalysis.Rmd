@@ -15,6 +15,8 @@ Question for Le: How do I include footnotes in R Markdown?
 
 # I. Introduction: Overview of Original Paper
 
+Question for Le: Does this look okay?
+
 This replication examines the paper "Policy or Partisanship: Replicating Results 
 From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
 authors aim to explore one key question: "are voters motivated by policy
@@ -988,7 +990,7 @@ I <-  lm(switchtocon ~ EUIntegrationSelf6 * Conchange + age + gender.x + white
 
 # And finally, Table 6:
 
-# Question for Le: How do I get this above the start of the "Propoesed Extension"
+# Question for Le: How do I get this above the start of the "Proposed Extension"
 # section?
 
 stargazer(G, H, I, 
