@@ -5,13 +5,14 @@ date: "4/28/2021"
 output: pdf_document
 ---
 
+Note for Trisha: Change the title above to something other than the paper's
+original title.
+
 ### Acknowledgements
 
 I'd like to thank Professor Jeff Gill, Le Bao, and the course staff of Gov 52 
-for their unwavering support as I've pursued this project -- my immense 
-gratitude to all of you.
-
-Note for Trisha: Footnotes are put inside the square brackets after a caret ^[], e.g., ^[This is a footnote.]
+for their unwavering support in this class and as I've pursued this project -- 
+my immense gratitude to all of you.
 
 # I. Introduction: Overview of Original Paper
 
@@ -49,11 +50,11 @@ align themselves with the Conservative party; looking specifically at the issue
 of redistribution, they find that this is indeed the case. The authors' other 
 results/conclusions are discussed in detail in the next section.
 
-In the next section, I replicate the authors' main results (6 tables and 2 
-figures), providing my analyses/interpretation. Then, in the third section, I
-consider ways to extend the authors' work, in this case, by employing another 
-regression method particularly suited to analyses with binary outcomes (such as 
-switching parties) -- logistic regression.
+In the next section, I replicate ^[The data and code used in the report can be 
+obtained here:] the authors' main results (6 tables and 2 figures), providing my analyses/interpretation. Then, in the third section, I consider ways to extend 
+the authors' work, in this case, by employing another regression method 
+particularly suited to analyses with binary outcomes (such as switching parties) 
+-- logistic regression.
 
 # II. Replicated Results and Discussion
 
@@ -1103,3 +1104,7 @@ exp(table1reg_logistic$coefficients[])
 ```
 
 # IV. Bibliography
+
+https://poseidon01.ssrn.com/delivery.php?ID=527000067124025067095113075070106108039003024042071075093075112088116127097094006067114102007027106035006118101118066012029092005082039040022085029077121099027079010057077009093030070064114126083093115081011094012094102027115097065022064028007111101001&EXT=pdf&INDEX=TRUE
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP
