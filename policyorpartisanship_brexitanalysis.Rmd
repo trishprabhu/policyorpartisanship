@@ -3,6 +3,8 @@ title: "Policy or Partisanship: Replicating Results From An Analysis of Quasi-Ex
 author: "Trisha Prabhu"
 date: "4/28/2021"
 output: pdf_document
+header-includes:
+   - \usepackage{float}
 ---
 
 Note for Trisha: Change the title above to something other than the paper's
@@ -989,10 +991,6 @@ I <-  lm(switchtocon ~ EUIntegrationSelf6 * Conchange + age + gender.x + white
 
 # And finally, Table 6:
 
-# Question for Le: How do I get this above the start of the "Proposed Extension"
-# section?
-# https://stackoverflow.com/questions/55317759/how-to-keep-a-table-here-defnitely-in-r-markdown
-
 stargazer(G, H, I, 
           title = "Euroskepticism and Switching Vote to Conservatives",
           no.space = TRUE, 
@@ -1008,7 +1006,8 @@ stargazer(G, H, I,
           dep.var.labels   = "Switched to Conservatives",
           font.size = "tiny",
           header = FALSE,
-          star.cutoffs = c(0.05, 0.01,0.001))
+          star.cutoffs = c(0.05, 0.01,0.001),
+          table.placement = "H")
 
 # From the paper: "Using Ordinary Least Squares regression (displayed in Table 
 # 6), we find a clear positive relationship between their level of 
