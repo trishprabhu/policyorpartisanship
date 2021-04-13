@@ -321,7 +321,7 @@ mean01 <- mean(merge01$partyswitcher,na.rm=TRUE)
 
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warnings = FALSE, message = FALSE}
 
 ### Let's create Table 2:
 
@@ -370,7 +370,7 @@ intreg2a <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conch
 
 ```
 
-```{r, results = 'asis', echo = FALSE}
+```{r, results = 'asis', echo = FALSE, warnings = FALSE, message = FALSE}
 
 # And finally, let's create Table 2, with everything:
 
@@ -389,7 +389,8 @@ stargazer(table2reg, intreg2, intreg2a,
           dep.var.labels   = "Joined Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01,0.001),
           font.size = "tiny",
-          header = FALSE) 
+          header = FALSE,
+          table.placement = "H") 
 
 ```
 
@@ -409,7 +410,7 @@ significant at the 0.001 level, suggests "a one-point increase in pre-referendum
 Euroskepticism generates a .7 percent increase in the probability of switching
 loyalties to the Conservatives" (Schonfeld and Winter-Levy 2019).
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warnings = FALSE, message = FALSE}
 
 # Let's look at the percent switched for various groups of Euroskepticism 
 # scores:
@@ -431,7 +432,7 @@ mean2910 <- mean(merge2910$switchtocons,na.rm=TRUE)
 
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warnings = FALSE, message = FALSE}
 
 ### But do strong partisans (e.g. very committed to Conservative) change their policy preferences?
 
@@ -460,7 +461,7 @@ intreg3A <- lm(Euroskepticismchange ~ Conchange + gender.x + age.x + white
 
 ```
 
-```{r, results = 'asis', echo = FALSE}
+```{r, results = 'asis', echo = FALSE, warnings = FALSE, message = FALSE}
 
 # And finally, our table:
 
