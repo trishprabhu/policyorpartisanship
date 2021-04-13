@@ -394,19 +394,20 @@ stargazer(table2reg, intreg2, intreg2a,
 ```
 
 That conclusion was strengthened upon creating/examining Table 2. Here, I
-followed the same steps as I did to create Table 1, but altered to now examine
-not defection, but joining the Conservatives. Thus, I subsetted to pre-referendum
-(Wave 8) non-Conservatives, which I merged with the Wave 9 data, and created
-a switching variable "switchtocons" that indicated joining the Conservative Party 
--- a Wave 8 unit that reported affiliating with the Conservative Party in Wave 9. 
-I repeated the 3 same regressions as in Table 1, regressing switchtocons on
-reported levels of Euroskepticism, including perceived changes in the Euroskepticism
-of the Conservative Party as an interaction, and finally, throwing a number of
-relevant predictors in. The "policy matters" finding held: as reported in the
-paper, the coefficient associated with the first regression, significant at the
-0.001 level, suggests "a one-point increase in pre-referendum Euroskepticism
-generates a .7 percent increase in the probability of switching loyalties to the 
-Conservatives" (Schonfeld and Winter-Levy 2019).
+followed the same steps as I did to create Table 1, with alterations to examine
+not defection, but joining the Conservatives. Thus, like the authors, I subsetted 
+to pre-referendum (Wave 8) non-Conservatives, which I merged with the Wave 9 data, 
+and created a switching variable "switchtocons" that indicated joining the 
+Conservative Party  -- a Wave 8 unit that reported affiliating with the 
+Conservative Party in Wave 9. I repeated the 3 same regressions as in Table 1, 
+regressing my new switching variable, "switchtocons," on pre-referendum 
+self-reported levels of Euroskepticism, including perceived changes in the 
+Euroskepticism of the Conservative Party as an interaction, and finally, 
+throwing a number of relevant predictors in. The "policy matters" finding held: 
+as reported in the paper, the coefficient associated with the first regression, 
+significant at the 0.001 level, suggests "a one-point increase in pre-referendum 
+Euroskepticism generates a .7 percent increase in the probability of switching
+loyalties to the Conservatives" (Schonfeld and Winter-Levy 2019).
 
 ```{r, echo = FALSE}
 
