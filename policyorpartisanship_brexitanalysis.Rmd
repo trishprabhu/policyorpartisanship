@@ -276,6 +276,31 @@ stargazer(table1reg, intreg1, intreg1a,
 
 ```
 
+I began by replicating Table 1 of the paper, which aims to answer the paper's
+most fundamental question: are voters motivated by policy or partisanship? As 
+discussed, the authors operationalize that question by examining if/how party 
+affiliation evolved in the wake of Brexit. In Table 1, the authors examine
+defection from the Conservative Party. Like the authors, I began by focusing in 
+on Waves 8 and 9 of the data (immediately pre and post-referendum). I first 
+created a "Conservative Party ID" variable that indicated if, for each wave, 
+a given unit reported being a member of the Conservative party; I then used
+that information to subset to Wave 8 Conservatives, which I then merged with the 
+Wave 9 data. I also created another variable, "partyswitcher," that indicated 
+switching out of the Conservative Party -- a Wave 8 Unit that did not report 
+affiliating with the Conservatives in Wave 9. Like the authors, I then regressed 
+this "partyswitcher" variable on the respondent's self-reported level of 
+Euroskepticism (on a 0 - 10 scale) pre-referendum; in 2 other regressions, I 
+also included the perceived change in Euroskepticism of Conservatives as an 
+interaction, as well as threw in a range of demographic information (e.g. age, gender, 
+etc.). The coefficient associated with the first regression, which is significant at 
+the 0.05 level, suggests that "a one-point increase in pre-referendum 
+Euroskepticism yields a 0.3 percent decrease in the probability of defection" 
+(Schonfeld and Winter-Levy 2019). The interaction coefficient in the second/third 
+column of the data is also significant at the 0.05 level; the negative value 
+indicates that " less Euroskeptic Conservatives who perceive that the party has 
+become increasingly Euroskeptic are especially likely to reject it" (Schonfeld 
+and Winter-Levy 2019). Policy, not partisanship, it seems, is what matters.
+
 ```{r, echo = FALSE}
 
 # From the paper (Page 11): "of those who identified as Conservative before the 
@@ -367,6 +392,9 @@ stargazer(table2reg, intreg2, intreg2a,
           header = FALSE) 
 
 ```
+
+That conclusion was strengthened upon creating/examining Table 2. Here, I
+followed the same steps as in creating Table 1, 
 
 
 ```{r, echo = FALSE}
