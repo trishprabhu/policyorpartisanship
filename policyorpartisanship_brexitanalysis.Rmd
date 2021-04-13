@@ -480,7 +480,8 @@ stargazer(intreg3A, intreg3B,
                               "Very Strong Conservatives"),
           model.numbers = FALSE,
           header = FALSE,
-          star.cutoffs = c(0.05, 0.01,0.001))
+          star.cutoffs = c(0.05, 0.01,0.001),
+          table.placement = "H")
 
 # From the paper: There is a clear, statistically significant, positive 
 # relationship between Conservative partisans’ perception of their party’s 
@@ -493,6 +494,25 @@ stargazer(intreg3A, intreg3B,
 # before the referendum.
 
 ```
+
+Table 3 reflects the results of the authors' exploration of a interesting question
+related to the paper's central question: how does evolution in policy preference
+(e.g. pro-EU, anti-EU, etc.) vary across strong and less strong Conservatives? 
+In other words, "do strong partisans (e.g. very committed to Conservative) change 
+their policy preferences?" (Schonfeld and Winter-Levy 2019). Like the authors,
+I conduct this analysis by creating a variable - "Euroskepticismchange" that
+represents the change in a given unit's level of Euroskepticism from Wave 8 to
+Wave 9 (from pre-referendum to post-referendum). Using the dataset subsetted
+to Wave 8 Conservatives/all Wave 9 data, I then further subset this dataset to
+2 datasets, 1 representing units that characterized their party affiliation
+(in this case, to Conservatives) as "very strong," and another representing 
+units that did not. For each dataset ("very strong" Conservatives, and those
+that are not), I then regressed "Euroskepticismchange" on perceived increase in 
+Conservative Euroskepticism. As Table 3 indicates, "there is a clear, 
+statistically significant, positive relationship between Conservative partisans’
+perception of their party’s increasing Euroskepticism and their own 
+Euroskepticism"; the value of the coefficient is higher for self-characterized 
+"Very strong" Conservatives, as we'd expect.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
