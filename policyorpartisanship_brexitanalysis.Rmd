@@ -695,20 +695,21 @@ stargazer(table4reg, regnonUKIP, regUKIP, title = "Joining the Conservatives and
 
 ```
 
-The authors then turn to another interesting, related question: "As previously 
+The authors then turned to another interesting, related question: "As previously 
 non-Conservative Euroskeptics flocked to the party, what happened to their views 
 on other issues?" (Schonfeld and Winter-Levy 2019). In particular, the authors
 were curious to see if these newly minted Conservatives adopted the Conservative
 stance on other policy issues; this could shed light into whether "partisanship
 shapes the development of voters' policy preferences" (Schonfeld and Winter-Levy 
 2019).
-To answer this question, the authors select redistribution as the policy issue
-they'll examine; they note that it remains a key political issue in the UK. I
-begin by looking at Waves 7 and 11 (the pre and post-referendum surveys that ask
-about redistribution). Like the authors, I create a new variable, "redistchange,"
+
+To answer this question, the authors selected redistribution as the policy issue
+they examined; they noted that it remains a key political issue in the UK. I
+began by looking at Waves 7 and 11 (the pre and post-referendum surveys that ask
+about redistribution). Like the authors, I created a new variable, "redistchange,"
 which represents the change in the level of opposition to redistribution between
 the 2 waves (a positive value suggests an increase in opposition). I then 
-regress this variable on our "switchtocons" variable (an indicator of whether
+regressed this variable on our "switchtocons" variable (an indicator of whether
 a given unit switched to the Conservative Party). I do this for the general 
 dataset, as well as for 2 other specific datasets, one representing units that
 switched to Conservative from the United Kingdom Independence Party (UKIP),
@@ -719,7 +720,7 @@ should be stronger among respondents who were not previously members of UKIP"
 (Schonfeld and Winter-Levy 2019).
 
 As Table 4 shows us, overall, switching to the Conservative Party is associated 
-with a 0.542 point increase in the level of opposition to redistribution, on
+with a 0.542 point increase in the level of opposition to redistribution on
 a ten-point scale; this coefficient is significant at the 0.001 level. As
 we'd expect, this value is even larger -- 0.605 -- for those switching from
 a non-UKIP party; further, the coefficient remains significant at the 0.01 
