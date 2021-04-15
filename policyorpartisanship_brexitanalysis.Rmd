@@ -7,14 +7,13 @@ header-includes:
    - \usepackage{float}
 ---
 
-Note for Trisha: Change the title above to something other than the paper's
-original title.
-
 ### Acknowledgements
 
 I'd like to thank Professor Jeff Gill, Le Bao, and the course staff of Gov 52 
 for their unwavering support in this class and as I've pursued this project -- 
 my immense gratitude to all of you.
+
+Thanks also to my "Room 4" group; you made this class fun and memorable.
 
 # I. Introduction: Overview of Original Paper
 
@@ -498,25 +497,29 @@ stargazer(intreg3A, intreg3B,
 Table 3 reflects the results of the authors' exploration of an area of inquiry
 adjacent to the paper's central question: post-referendum, do Conservatives 
 experience evolution in Brexit policy preference, and does that evolution vary 
-across strong and less strong Conservatives? In other words,"do strong partisans 
-(e.g. very committed to Conservative) change their policy preferences?" 
-(Schonfeld and Winter-Levy 2019). Like the authors, I conduct this analysis by 
+across strong and less strong Conservatives? In particular,"do strong partisans 
+(e.g. very committed to Conservatives) change their policy preferences?" 
+(Schonfeld and Winter-Levy 2019). Like the authors, I conducted this analysis by 
 creating a variable - "Euroskepticismchange" - that represents the change in a 
 given unit's level of Euroskepticism from Wave 8 to Wave 9 (from pre-referendum 
 to post-referendum). Using the dataset subsetted to Wave 8 Conservatives/all 
-Wave 9 data, I then further subset this dataset to create 2 datasets, 1 
-representing units that characterized their party affiliation (in this case, 
-as Conservatives) as "very strong," and another representing units that did not. 
-For each dataset ("very strong" Conservatives, and those that are not), I then 
-regressed "Euroskepticismchange" on perceived increase in Conservative 
-Euroskepticism. As Table 3 indicates, "there is a clear, statistically 
-significant, positive relationship between Conservative partisans’ perception of 
-their party’s increasing Euroskepticism and their own Euroskepticism"; the value 
-of the coefficient is higher for self-characterized "Very strong" Conservatives, 
-as we'd expect.
+Wave 9 data, I then further subsetted this dataset to create 2 datasets, 1 
+representing units that characterized their affiliation to the Conservative
+Party as "very strong," and another representing units that did not. For each 
+dataset ("very strong" Conservatives, and those that are not), I then regressed 
+"Euroskepticismchange" on perceived increase in Conservative Euroskepticism. As 
+Table 3 indicates, "there is a clear, statistically significant, positive 
+relationship between Conservative partisans’ perception of their party’s 
+increasing Euroskepticism and their own Euroskepticism"; the value of the 
+coefficient is higher for self-characterized "Very strong" Conservatives, as 
+we'd expect.
 
-Does this negate the authors' conclusion that policy rules over partisanship?
-The authors argue no -- as we can see...
+Does this negate the authors' conclusion that policy rules over partisanship/
+party affiliation? The authors argue no, not really -- as we can see in Table 3, 
+"even for very strong Conservatives, a one-unit increase in perceived 
+Conservative Euroskepticism on a ten-point scale yields only a 0.22-unit 
+increase in personal Euroskepticism" (Schonfeld and Winter-Levy 2019), a 
+relatively small value. Note that this value is significant at the 0.001 level.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -570,7 +573,7 @@ g <- ggplot(bigmerge, aes(y = Euroskepticismchange, x = Conchange, color = Parti
 
 ```
 
-```{r, echo = FALSE, warnings = FALSE, message = FALSE}
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
 g
 
@@ -579,6 +582,17 @@ g
 # more precisely, their perception of the party’s evolving position."
 
 ```
+
+Figure 1 is a visual display of the results discussed in Table 3; here, we can 
+clearly see the relationship between a unit's perceived change in the 
+Euroskepticism of the Conservative Party and their personal change in their 
+views on Euroskepticism; for non-Conservatives, there's almost no relationship,
+whilst the slope is positive and steeper for "Moderate Conservatives" and even
+more steep for "Very Strong Conservatives," as we observed. These results are
+best summarized by the authors themselves: "the intensity of Conservative 
+partisanship determined the extent to which voters followed the party’s evolving 
+position on the EU – or, more precisely, their perception of the party’s 
+evolving position" (Schonfeld and Winter-Levy 2019).
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -680,6 +694,38 @@ stargazer(table4reg, regnonUKIP, regUKIP, title = "Joining the Conservatives and
           star.cutoffs = c(0.05, 0.01,0.001))
 
 ```
+
+The authors then turn to another interesting, related question: "As previously 
+non-Conservative Euroskeptics flocked to the party, what happened to their views 
+on other issues?" (Schonfeld and Winter-Levy 2019). In particular, the authors
+were curious to see if these newly minted Conservatives adopted the Conservative
+stance on other policy issues; this could shed light into whether "partisanship
+shapes the development of voters' policy preferences" (Schonfeld and Winter-Levy 
+2019).
+To answer this question, the authors select redistribution as the policy issue
+they'll examine; they note that it remains a key political issue in the UK. I
+begin by looking at Waves 7 and 11 (the pre and post-referendum surveys that ask
+about redistribution). Like the authors, I create a new variable, "redistchange,"
+which represents the change in the level of opposition to redistribution between
+the 2 waves (a positive value suggests an increase in opposition). I then 
+regress this variable on our "switchtocons" variable (an indicator of whether
+a given unit switched to the Conservative Party). I do this for the general 
+dataset, as well as for 2 other specific datasets, one representing units that
+switched to Conservative from the United Kingdom Independence Party (UKIP),
+and another representing units that did not switch from UKIP. UKIP is a 
+right-wing populist party already quite opposed to redistribution; with that 
+said, "the effect of joining the Conservatives on redistributive attitudes 
+should be stronger among respondents who were not previously members of UKIP"
+(Schonfeld and Winter-Levy 2019).
+
+As Table 4 shows us, overall, switching to the Conservative Party is associated 
+with a 0.542 point increase in the level of opposition to redistribution, on
+a ten-point scale; this coefficient is significant at the 0.001 level. As
+we'd expect, this value is even larger -- 0.605 -- for those switching from
+a non-UKIP party; further, the coefficient remains significant at the 0.01 
+level. Finally, though not significant at the 0.05 level, the coefficient 
+associated with those switching from UKIP suggests an almost negligible change
+(on a 10-point scale) in opposition to redistribution (as we'd expect).
 
 ```{r, echo = FALSE}
 
