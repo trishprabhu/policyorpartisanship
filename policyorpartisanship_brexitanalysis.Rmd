@@ -926,7 +926,12 @@ g11
 
 ```
 
-Figure 2 supports Table 4; in particular, 
+Figure 2 (both graphs) supports Table 4; in particular, they help support our 
+assumption that affiliating with the Conservative Party should -- if partisan
+affiliation influences policy preferences -- lead to an increase in opposition
+to redistribution. As the graphs show, "the Conservatives were the most 
+anti-redistribution party in both Wave 7 – before the referendum – and Wave 11
+– after the referendum" (Schonfeld and Winter-Levy 2019).
 
 ```{r, echo = FALSE}
 
@@ -984,7 +989,6 @@ BES6$EUIntegrationSelf6 <- BES6$EUIntegrationSelf
 # Conservative vote variable:
 
 BES6$Convote <- ifelse(BES6$generalElectionVote15 == "Conservative", 1, 0)
-
 
 # Conservative subset:
 
@@ -1081,6 +1085,21 @@ stargazer(GG, HH, II,
 # percent less likely to abandon the Conservatives in the 2017 election."
 
 ```
+
+Finally, the authors ask one last, related (and once again, fascinating) 
+question: yes, we've observed changing partisanship, but "has changing 
+partisanship influenced actual voting?" (Schonfeld and Winter-Levy 2019). While, 
+as the authors point out, it's impossible to isolate causality for voting 
+changes, we can still "assess the relationship between Euroskepticism
+and voting in the UK's 2015 and 2017 elections" (Schonfeld and Winter-Levy 
+2019).
+Like the authors, I began by looking at defection from the Conservative Party.
+I first created a "voteswitcher" variable, which indicated if a given unit that 
+voted for the Conservatives in 2015 (pre-referendum), ultimately defected/voted 
+for another party in 2017. I then regressed voteswitcher on the voter's level of 
+Euroskepticism in 2015; in 2 other regressions, I added perceived changes in the
+Euroskepticism of the Conservative Party as an interaction, as well as threw in 
+a bunch of relevant covariates.
 
 ```{r, echo = FALSE}
 
