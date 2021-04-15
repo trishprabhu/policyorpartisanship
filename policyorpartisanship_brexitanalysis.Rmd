@@ -691,7 +691,8 @@ stargazer(table4reg, regnonUKIP, regUKIP, title = "Joining the Conservatives and
                               "UKIP"),
           header = FALSE,
           model.numbers = FALSE,
-          star.cutoffs = c(0.05, 0.01,0.001))
+          star.cutoffs = c(0.05, 0.01,0.001),
+          table.placement = "H")
 
 ```
 
@@ -895,7 +896,8 @@ g7 <- ggplot(redistribution7, aes(y = perceived_opp7,
   stat_smooth(method ="lm", se = FALSE) +  
   theme_bw() +
   xlab("Party") + 
-  ylab("Perceived Opposition to Redistribution (Wave 7)")
+  ylab("Perceived Opposition to Redistribution (Wave 7)") +
+  labs(title = "Wave 7 Values of Perceived Opposition to Redistribution")
 
 # And now, the same thing for Wave 11:
 
@@ -912,10 +914,10 @@ g11 <- ggplot(redistribution11,
   stat_smooth(method = "lm",se = FALSE) + 
   theme_bw() +
   xlab("Party") + 
-  ylab("Perceived Opposition to Redistribution (Wave 11)")
+  ylab("Perceived Opposition to Redistribution (Wave 11)") +
+  labs(title = "Wave 11 Values of Perceived Opposition to Redistribution")
 
 ```
-
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
@@ -923,6 +925,8 @@ g7
 g11
 
 ```
+
+Figure 2 supports Table 4; in particular, 
 
 ```{r, echo = FALSE}
 
