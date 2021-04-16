@@ -1176,7 +1176,7 @@ covariates.
 The results suggest the relationship we'd expect: a one-unit increase (on a 10-
 point scale) in a non-Conservative voter's level of Euroskepticism in 2015 is 
 associated with a 4.7% increase in the likelihood of voting for the Conservative
-Party in 2017. Once again, this coefficient is significant at the 0.05 level.
+Party in 2017. Once again, this coefficient is significant at the 0.001 level.
 
 # III. Proposed Extension
 
