@@ -1040,7 +1040,7 @@ BES13$EUIntegrationCon17 <- BES13$EUIntegrationCon
 
 BES13con <- merge(BES6con, BES13, by = "id")
 BES13con$Conchange <- BES13con$EUIntegrationCon17 - BES13con$EUIntegrationCon15
-BES13con$voteswitcher  <- ifelse(BES13con$generalElectionVote17 != BES13con$generalElectionVote15, 1, 0)
+BES13con$voteswitcher <- ifelse(BES13con$generalElectionVote17 != BES13con$generalElectionVote15, 1, 0)
 
 # Run the regressions we'll include in Table 5 (below)!
 
@@ -1093,13 +1093,21 @@ as the authors point out, it's impossible to isolate causality for voting
 changes, we can still "assess the relationship between Euroskepticism
 and voting in the UK's 2015 and 2017 elections" (Schonfeld and Winter-Levy 
 2019).
-Like the authors, I began by looking at defection from the Conservative Party.
-I first created a "voteswitcher" variable, which indicated if a given unit that 
-voted for the Conservatives in 2015 (pre-referendum), ultimately defected/voted 
-for another party in 2017. I then regressed voteswitcher on the voter's level of 
-Euroskepticism in 2015; in 2 other regressions, I added perceived changes in the
-Euroskepticism of the Conservative Party as an interaction, as well as threw in 
-a bunch of relevant covariates.
+
+Like the authors, I began by looking at individuals who reported voting for the
+Conservative Party in 2015 (pre-referendum). I then created a "voteswitcher" 
+variable, which indicated if a given unit ultimately defected/voted for another
+party in 2017. I regressed voteswitcher on the voter's level of Euroskepticism 
+in 2015; in 2 other regressions, I added perceived changes in the Euroskepticism 
+of the Conservative Party as an interaction, as well as threw in a bunch of 
+relevant covariates.
+
+The results suggest that there is a relatively strong negative relationship 
+between 2015 Euroskepticism and the likelihood of defecting from the 
+Conservative Party in the 2017 election; indeed, "a one-unit increase in 
+Euroskepticism (on the ten-point scale) in 2015 makes someone 2.9 percent less 
+likely to abandon the Conservatives in the 2017 election." This coefficient
+is significant at the 0.001 level.
 
 ```{r, echo = FALSE}
 
@@ -1154,6 +1162,22 @@ stargazer(G, H, I,
 # self-reported policy preferences to their behavior in the voting booth."
 
 ```
+
+What about non-Conservatives? In Table 6, the authors extend their analysis to
+answer exactly that question. Here, I began by looking at individuals who did 
+not report voting for the Conservative Party in 2015 (pre-referendum); I then 
+created a "switchtocon" variable that indicated if a given unit ultimately 
+switched to the Conservative Party in 2017. Once again, I regressed my 
+"switchtocon" variable on voters' level of Euroskepticism in 2015, creating
+2 other regressions, 1 with perceived changes in the Euroskepticism of the 
+Conservative Party as an interaction, and another with a number of additional
+covariates.
+
+The results suggest the relationship we'd expect: a one-unit increase (on a 10-
+point scale) in a non-Conservative voter's level of Euroskepticism in 2015 is 
+associated with an increase in the likelihood of voting for the Conservative
+Party in 2017  of 4.7%. Once again, this coefficient is significant at the 0.05
+level.
 
 # III. Proposed Extension
 
