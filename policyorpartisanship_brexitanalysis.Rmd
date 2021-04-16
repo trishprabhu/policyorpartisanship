@@ -1,7 +1,7 @@
 ---
 title: "Policy or Partisanship: Replicating Results From An Analysis of Quasi-Experimental Evidence From Brexit"
 author: "Trisha Prabhu"
-date: "4/28/2021"
+date: "05/07/2021"
 output: pdf_document
 header-includes:
    - \usepackage{float}
@@ -1163,10 +1163,10 @@ stargazer(G, H, I,
 
 ```
 
-What about non-Conservatives? In Table 6, the authors extend their analysis to
-answer exactly that question. Here, I began by looking at individuals who did 
-not report voting for the Conservative Party in 2015 (pre-referendum); I then 
-created a "switchtocon" variable that indicated if a given unit ultimately 
+What about non-Conservatives? In Table 6, the authors extend their analysis in 
+Table 5 to answer exactly that question. Here, I began by looking at individuals 
+who reported not voting for the Conservative Party in 2015 (pre-referendum); 
+I then created a "switchtocon" variable that indicated if a given unit ultimately 
 switched to the Conservative Party in 2017. Once again, I regressed my 
 "switchtocon" variable on voters' level of Euroskepticism in 2015, creating
 2 other regressions, 1 with perceived changes in the Euroskepticism of the 
@@ -1175,9 +1175,8 @@ covariates.
 
 The results suggest the relationship we'd expect: a one-unit increase (on a 10-
 point scale) in a non-Conservative voter's level of Euroskepticism in 2015 is 
-associated with an increase in the likelihood of voting for the Conservative
-Party in 2017  of 4.7%. Once again, this coefficient is significant at the 0.05
-level.
+associated with a 4.7% increase in the likelihood of voting for the Conservative
+Party in 2017. Once again, this coefficient is significant at the 0.05 level.
 
 # III. Proposed Extension
 
