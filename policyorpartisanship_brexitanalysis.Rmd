@@ -1236,6 +1236,19 @@ exp(table1reg_logistic$coefficients[])
 
 # Can plot some graphs -- look at the magnitudes across the scales of indep.
 # variable. 
+
+merged %>% 
+  ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
+  geom_point() +
+  stat_smooth(method = "glm", se = FALSE, 
+              method.args = list(family = "binomial"))+
+  theme_minimal() +
+  labs(title = "Logistic regression is...",
+       subtitle = "")
+
+binnedplot(x = intreg1a_logistic$fitted.values, 
+           y = resid(intreg1a_logistic, type = "response"))
+
 # Can do some inverse-logit/predict -- can define high level and a low level; compare
 # 1 to 2, 2 to 3, etc. -- and discuss your findings in your report.
 
