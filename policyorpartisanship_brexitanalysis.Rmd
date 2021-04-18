@@ -656,7 +656,7 @@ table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x +
 
 # People who were part of UKIP (should see negligible change, as discussed in
 # the paper, as UKIP was already very opposed to redistribution):
-
+ 
 regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
               + country.x, data = merged2, 
               partyId8 == "United Kingdom Independence Party (UKIP)")
@@ -1241,9 +1241,18 @@ merged %>%
   ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
   geom_point() +
   stat_smooth(method = "glm", se = FALSE, 
-              method.args = list(family = "binomial"))+
+              method.args = list(family = "binomial")) +
   theme_minimal() +
   labs(title = "Logistic regression is...",
+       subtitle = "")
+
+
+merged %>% 
+  ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
+  geom_point() +
+  stat_smooth(method = "lm", se = FALSE) +
+  theme_minimal() +
+  labs(title = "Linear regression is...",
        subtitle = "")
 
 binnedplot(x = intreg1a_logistic$fitted.values, 
