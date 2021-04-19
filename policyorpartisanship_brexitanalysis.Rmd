@@ -1263,7 +1263,8 @@ plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", show.values
 
 # Question For Le: What should I go ahead and conclude from this (if at all)? 
 # Right now, it seems to me like we get a more sophisticated picture with 
-# logistic?
+# logistic? What about the big differences in the probability values; anything
+# to take away there?
 
 ```
 
@@ -1275,6 +1276,13 @@ plot1lm_prob
 plot1log_prob
 
 ```
+
+The results above suggest that the authors ultimately didn't have a lot to gain
+in utilizing logistic regression in lieu of linear regression; neither the
+significance nor the direction of the coefficients change. With that said,
+we do get a clearer, more nuanced picture of the results with an odds ratio
+interpretation, which more concretely allows us to understand the relative
+magnitudes of the various coefficients. *What about the probability values?
 
 ```{r, echo = FALSE}
 
