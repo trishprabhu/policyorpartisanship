@@ -1219,6 +1219,14 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
           font.size = "tiny",
           header = FALSE) 
 
+# Look at some of the other
+
+# Look at the table, and say that the findings stay the same; the authors 
+# ultimately didn't have a ton to gain by pursuing logistic regression.
+
+# Le: Maybe look at interaction and the other 2 model
+# sjPlot; plot_model - compare to linear model
+
 # Let's look at the null and residual deviance for our last model:
 
 pchisq(3209.2 - 3176.4, 6215 - 6207, lower = FALSE)
@@ -1240,8 +1248,8 @@ exp(table1reg_logistic$coefficients[])
 merged %>% 
   ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
   geom_point() +
-  stat_smooth(method = "glm", se = FALSE, 
-              method.args = list(family = "binomial")) +
+  stat_smooth(method = "glm", se = FALSE,
+              method.args = list(binomial(link = "logit"))) +
   theme_minimal() +
   labs(title = "Logistic regression is...",
        subtitle = "")
