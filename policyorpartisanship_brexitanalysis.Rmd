@@ -17,6 +17,8 @@ Thanks also to my "Room 4" group; you made this class fun and memorable.
 
 # I. Introduction: Overview of Original Paper
 
+Note for Trisha: You still need to add citations here!
+
 This replication examines the paper "Policy or Partisanship: Replicating Results 
 From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
 authors aim to explore one key question: "are voters motivated by policy
@@ -52,7 +54,8 @@ of redistribution, they find that this is indeed the case. The authors' other
 results/conclusions are discussed in detail in the next section.
 
 In the next section, I replicate ^[The data and code used in the report can be 
-obtained here:] the authors' main results (6 tables and 2 figures), providing my analyses/interpretation. Then, in the third section, I consider ways to extend 
+obtained here:] the authors' main results (6 tables and 2 figures), providing my 
+analyses/interpretation. Then, in the third section, I consider ways to extend 
 the authors' work, in this case, by employing another regression method 
 particularly suited to analyses with binary outcomes (such as switching parties) 
 -- logistic regression.
@@ -74,6 +77,7 @@ library(ggthemes)
 library(dplyr)
 library(arm)
 library(packrat)
+library(sjPlot)
 
 # Read in the various "waves" of data:
 
@@ -1180,10 +1184,21 @@ Party in 2017. Once again, this coefficient is significant at the 0.001 level.
 
 # III. Proposed Extension
 
-```{r}
-# Note that our dependent variable is binary (switching -- Yes or No).
+In replicating the results of this paper, I noticed an area for potential 
+extension of the authors' original results: as discussed above, Tables 1 and
+2, which examine the probability of defecting from the Conservative Party and 
+probability of switching to the Conservative Party, respectively, as a function 
+of an individual's pre-referendum level of Euroskepticism, have a
+binary outcome/dependent variable (partyswitcher and switchtocon are indicator
+variables, with 1 indicating defection/switching, and 0 indicating otherwise).
+As described in Gelman and Hill, "logistic regression is the standard way to 
+model binary outcomes" (Gelman and Hill 2007). What if, I wondered, I performed
+the regressions summarized in Table 1 and 2 via logistic regression? Would
+the results change; otherwise, would we be able to see any interesting findings?
 
-# What if we re-created Table 1 using logistic regression? 
+```{r, echo = FALSE}
+
+# Let's perform the Table 1 regressions using logistic regression:
 
 table1reg_logistic <- glm(formula = partyswitcher ~ EUIntegrationSelf8,
                           family = binomial(link = "logit"),
@@ -1201,7 +1216,9 @@ intreg1a_logistic <- glm(partyswitcher ~ EUIntegrationSelf8 * Conchange + age.x
 ```
 
 
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE}
+
+# Now, let's recreate Table 1:
 
 stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic, 
           title = "Euroskepticism and Defection from the Conservatives (Logistic)",
@@ -1217,9 +1234,126 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
           dep.var.labels   = "Defect from Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
           font.size = "tiny",
-          header = FALSE) 
+          header = FALSE)
 
-# Look at some of the other
+```
+
+```{r, echo = FALSE}
+
+# Let's use the sjPlot package to plot the last model (with the interaction,
+# and all of the covariates) in both its lm() and logistic form:
+
+plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE, 
+           title = "Defection Model Estimates (Lm)", value.offset = 0.3,
+           digits = 5)
+plot1log_noprob <- plot_model(intreg1a_logistic, show.values = TRUE, 
+           title = "Defection Model Estimates (Logistic)", value.offset = 0.3,
+           digits = 5)
+
+# And here, we can look at the probabilities:
+
+plot1lm_prob <-  plot_model(intreg1a, transform = "plogis", show.values = TRUE, 
+           title = "Defection Model Probability Estimates (Lm)", 
+           value.offset = 0.3,
+           digits = 5)
+plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", show.values = TRUE, 
+           title = "Defection Model Probability Estimates (Logistic)", 
+           value.offset = 0.3,
+           digits = 5)
+
+# Question For Le: What should I go ahead and conclude from this (if at all)? 
+# Right now, it seems to me like we get a more sophisticated picture with 
+# logistic?
+
+```
+
+```{r, echo = FALSE}
+
+plot1lm_noprob
+plot1log_noprob
+plot1lm_prob
+plot1log_prob
+
+```
+
+```{r, echo = FALSE}
+
+# Let's perform the Table 2 regressions using logistic regression:
+
+table2reg_logistic <- glm(switchtocons ~ merged2$EUIntegrationSelf8,
+                         family = binomial(link = "logit"),
+                          data = merged2)
+
+intreg2_logistic <- glm(switchtocons ~ EUIntegrationSelf8 * Conchange,
+                       family = binomial(link = "logit"),
+                          data = merged2)
+
+intreg2a_logistic <- glm(switchtocons ~ EUIntegrationSelf8 * Conchange 
+              + age.x + gender.x + white + as.factor(country.x),
+              family = binomial(link = "logit"),
+                          data = merged2)
+
+```
+
+```{r, results = 'asis', echo = FALSE}
+
+# Now, let's recreate Table 2:
+
+stargazer(table2reg_logistic, intreg2_logistic, intreg2a_logistic, 
+          title = "Euroskepticism and Joining the Conservatives (Logistic)",
+          covariate.labels = c("Pre-Referendum Euroskepticism", 
+                               "Perceived Change in Conservative Euroskepticism", 
+                               "Age",
+                               "Female",
+                               "White",
+                               "Scotland",
+                               "Wales", 
+                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Constant"),
+          dep.var.labels   = "Joined Conservatives",
+          no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
+          font.size = "tiny",
+          header = FALSE)
+
+```
+
+```{r, echo = FALSE}
+
+# Let's use the sjPlot package to plot the last model (with the interaction,
+# and all of the covariates) in both its lm() and logistic form:
+
+plot2lm_noprob <- plot_model(intreg2a, show.values = TRUE, 
+           title = "Defection Model Estimates (Lm)", value.offset = 0.3,
+           digits = 5)
+plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE, 
+           title = "Defection Model Estimates (Logistic)", value.offset = 0.3,
+           digits = 5)
+
+# And here, we can look at the probabilities:
+
+plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE, 
+           title = "Defection Model Probability Estimates (Lm)", 
+           value.offset = 0.3,
+           digits = 5)
+plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", show.values = TRUE, 
+           title = "Defection Model Probability Estimates (Logistic)", 
+           value.offset = 0.3,
+           digits = 5)
+
+```
+
+```{r, echo = FALSE}
+
+plot2lm_noprob
+plot2log_noprob
+plot2lm_prob
+plot2log_prob
+
+```
+
+# Ignore - Delete Before Submitting:
+
+```{r, results = 'asis'}
 
 # Look at the table, and say that the findings stay the same; the authors 
 # ultimately didn't have a ton to gain by pursuing logistic regression.
