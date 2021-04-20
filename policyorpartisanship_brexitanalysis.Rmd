@@ -17,16 +17,15 @@ Thanks also to my "Room 4" group; you made this class fun and memorable.
 
 # I. Introduction: Overview of Original Paper
 
-Note for Trisha: You still need to add citations here!
-
 This replication examines the paper "Policy or Partisanship: Replicating Results 
 From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
 authors aim to explore one key question: "are voters motivated by policy
-preferences, or partisan identities?" The authors answer the question in the
-context of the UK's political system, exploiting the UK’s Brexit referendum -- 
-which caused an abrupt change in the British Conservative Party’s stance on 
-leaving the European Union, and via a vote “so narrow that it was more or less a 
-coin flip.” The authors’ methodology is relatively simple: they employ an 
+preferences, or partisan identities?" (Schonfeld and Winter-Levy 2019). The 
+authors answer the question in the context of the UK's political system, 
+exploiting the UK’s Brexit referendum -- which caused an abrupt change in the 
+British Conservative Party’s stance on leaving the European Union, and via a 
+vote "so narrow that it was more or less a coin flip" (Schonfeld and Winter-Levy 
+2019). The authors’ methodology is relatively simple: they employ an 
 uninterrupted time-series design, examining panel survey data from the British 
 Election Study to compare referendum attitudes and party affiliation in the data 
 immediately before and after the referendum (“Wave 8” and “Wave 9” data, 
@@ -1261,11 +1260,6 @@ plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", show.values
            value.offset = 0.3,
            digits = 5)
 
-# Question For Le: What should I go ahead and conclude from this (if at all)? 
-# Right now, it seems to me like we get a more sophisticated picture with 
-# logistic? What about the big differences in the probability values; anything
-# to take away there?
-
 # Plot them side by side; explore "cowplot" package
 
 ```
@@ -1281,14 +1275,16 @@ plot1log_prob
 
 ```
 
-The results above suggest that the authors ultimately didn't have a lot to gain
-in utilizing logistic regression in lieu of linear regression; neither the
-significance nor the direction of the coefficients change. With that said,
-we do get a clearer, more nuanced picture of the results with an odds ratio
-interpretation, which more concretely allows us to understand the relative
-magnitudes of the various coefficients. *What about the probability values?
-Le: Once again, direction/sign/significance stays the same, but we get a more
-nuanced picture, given the variance in magnitude.
+The results above suggest that in the case of Table 1, the authors ultimately 
+didn't have a lot to gain in utilizing logistic regression instead of linear 
+regression; neither the significance nor the direction of the coefficients 
+change. With that said, we do get a clearer, more nuanced picture of the results 
+with an odds ratio interpretation, which more concretely allows us to understand 
+relative magnitudes of the various coefficients. The same is true in the case
+of the probability values: while, across both linear and logistic, the 
+direction/significance of coefficients stay the same, we do see the magnitude
+of the probabilities vary a bit more with the logistic regression, suggesting
+additional nuance.
 
 ```{r, echo = FALSE}
 
