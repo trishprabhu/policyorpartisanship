@@ -1266,6 +1266,8 @@ plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", show.values
 # logistic? What about the big differences in the probability values; anything
 # to take away there?
 
+# Plot them side by side; explore "cowplot" package
+
 ```
 
 ```{r, echo = FALSE}
@@ -1275,6 +1277,8 @@ plot1log_noprob
 plot1lm_prob
 plot1log_prob
 
+# Rename the variables!
+
 ```
 
 The results above suggest that the authors ultimately didn't have a lot to gain
@@ -1283,6 +1287,8 @@ significance nor the direction of the coefficients change. With that said,
 we do get a clearer, more nuanced picture of the results with an odds ratio
 interpretation, which more concretely allows us to understand the relative
 magnitudes of the various coefficients. *What about the probability values?
+Le: Once again, direction/sign/significance stays the same, but we get a more
+nuanced picture, given the variance in magnitude.
 
 ```{r, echo = FALSE}
 
@@ -1358,6 +1364,17 @@ plot2lm_prob
 plot2log_prob
 
 ```
+
+
+Discuss significance/direction changes; keep in mind if initial value was
+significant, as this can explain direction changes.
+
+Logit curve; don 't have to do for all 
+plot_model(m, type = "eff", terms = "Days")
+terms -- what variables you want to explorer
+type -- what curve you wnat to create
+
+End with some takeaways: based on my analysis, what should be done?
 
 # Ignore - Delete Before Submitting:
 
