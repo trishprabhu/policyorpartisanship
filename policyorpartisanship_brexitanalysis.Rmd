@@ -59,6 +59,8 @@ the authors' work, in this case, by employing another regression method
 particularly suited to analyses with binary outcomes (such as switching parties) 
 -- logistic regression.
 
+Note for Trisha: Add footnote linking to original paper/replication code!
+
 # II. Replicated Results and Discussion
 
 ```{r setup, include = FALSE}
@@ -77,6 +79,7 @@ library(dplyr)
 library(arm)
 library(packrat)
 library(sjPlot)
+library(cowplot)
 
 # Read in the various "waves" of data:
 
@@ -1243,48 +1246,80 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
 # and all of the covariates) in both its lm() and logistic form:
 
 plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE, 
-           title = "Defection Model Estimates (Lm)", value.offset = 0.3,
+           axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
+           value.offset = 0.3,
            digits = 5)
-plot1log_noprob <- plot_model(intreg1a_logistic, show.values = TRUE, 
-           title = "Defection Model Estimates (Logistic)", value.offset = 0.3,
+
+plot1log_noprob <- plot_model(intreg1a_logistic, show.values = TRUE,
+                    axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
+                    value.offset = 0.3,
            digits = 5)
 
 # And here, we can look at the probabilities:
 
 plot1lm_prob <-  plot_model(intreg1a, transform = "plogis", show.values = TRUE, 
-           title = "Defection Model Probability Estimates (Lm)", 
+                     axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
            digits = 5)
-plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", show.values = TRUE, 
-           title = "Defection Model Probability Estimates (Logistic)", 
+plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", 
+                     show.values = TRUE, 
+                     axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
            digits = 5)
-
-# Plot them side by side; explore "cowplot" package
 
 ```
 
 ```{r, echo = FALSE}
 
-plot1lm_noprob
-plot1log_noprob
-plot1lm_prob
-plot1log_prob
+# How to get rid of "partyswitcher" heading?
 
-# Rename the variables!
+plot_grid(plot1lm_noprob, plot1log_noprob, 
+          label_size = 12)
+
+plot_grid(plot1lm_prob, plot1log_prob, 
+          labels = c('Linear Regression', 'Logistic Regression'), 
+          label_size = 12)
 
 ```
 
 The results above suggest that in the case of Table 1, the authors ultimately 
 didn't have a lot to gain in utilizing logistic regression instead of linear 
-regression; neither the significance nor the direction of the coefficients 
-change. With that said, we do get a clearer, more nuanced picture of the results 
-with an odds ratio interpretation, which more concretely allows us to understand 
-relative magnitudes of the various coefficients. The same is true in the case
-of the probability values: while, across both linear and logistic, the 
-direction/significance of coefficients stay the same, we do see the magnitude
-of the probabilities vary a bit more with the logistic regression, suggesting
-additional nuance.
+regression; neither the significance nor the direction of any of the 
+coefficient estimates change. With that said, we do get a clearer, more nuanced 
+picture of the results with an odds ratio interpretation; specifically, it more
+concretely allows us to compare the relative magnitudes of the various 
+coefficients. The same is true in the case of the probability values: while, 
+across both linear and logistic, the direction/significance of probabilities 
+stay the same, we do see the logistic probability estimates vary a bit more
+in magnitude, suggesting additional nuance.
 
 ```{r, echo = FALSE}
 
