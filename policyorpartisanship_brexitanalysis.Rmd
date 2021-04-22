@@ -627,7 +627,7 @@ BES7 <- BES7 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES7$redistSelf7 <- BES7$redistSelf
-merged2 <- merge(merged2, BES7, by = "id")
+merged2_T4 <- merge(merged2, BES7, by = "id")
 
 BES11 <- BES11 %>%
   mutate(redistSelf = case_when(redistSelf== "Government should try to make incomes equal" ~ 0,
@@ -639,7 +639,7 @@ BES11 <- BES11 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES11$redistSelf11 <- BES11$redistSelf
-merged2 <- merge(merged2, BES11, by = "id")
+merged2_T4 <- merge(merged2, BES11, by = "id")
 
 # From the paper: "We now estimate the effect of joining the Conservatives on changes in 
 # attitudes towards redistribution. Our dependent variable, “Increase in 
@@ -650,7 +650,7 @@ merged2 <- merge(merged2, BES11, by = "id")
 # ask about redistribution preferences." (A higher value suggests more 
 # opposition to redistribution.)
 
-merged2$redistchange <- merged2$redistSelf11 - merged2$redistSelf7
+merged2_T4$redistchange <- merged2_T4$redistSelf11 - merged2_T4$redistSelf7
 
 # From the paper: "We find a positive association between joining the 
 # Conservatives and increased opposition to redistribution: as column 1 shows, 
@@ -658,13 +658,13 @@ merged2$redistchange <- merged2$redistSelf11 - merged2$redistSelf7
 # half-point increase in opposition to redistribution on a ten-point scale.
 
 table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x + 
-                  country.x, data = merged2)
+                  country.x, data = merged2_T4)
 
 # People who were part of UKIP (should see negligible change, as discussed in
 # the paper, as UKIP was already very opposed to redistribution):
  
 regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
-              + country.x, data = merged2, 
+              + country.x, data = merged2_T4, 
               partyId8 == "United Kingdom Independence Party (UKIP)")
 
 # People who were not part of UKIP -- from the paper: "the effect of joining the 
@@ -672,7 +672,7 @@ regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x
 # who were not previously members of UKIP."
 
 regnonUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
-                 + country.x, data = merged2, 
+                 + country.x, data = merged2_T4, 
                  partyId8 != "United Kingdom Independence Party (UKIP)")
 
 ```
@@ -1437,17 +1437,17 @@ plot_grid(plot2lm_prob, plot2log_prob,
 
 ```
 
-Once again, the results here suggest very small differences between the linear 
+Once again, the results here indicate little to no difference between the linear 
 and logistic regression models, suggesting that the authors didn't necessarily
-have something to gain in utilizing logistic regression. In particular,
-across all of the coefficient estimates/odd ratios, as well as the probability
-values, the direction of the coefficients are consistent. For the most part,
-the significance of the values are consistent as well, with the singular
-exception of the "Perceived Change in Conservative Euroskepticism" coefficient
-losing one significance star in the logistic regression model (the coefficient/
-probability value is still significant at the 0.05 level across both models,
-however). With that said, once again, the value-add of the logistic regression
-here is in the additional nuance/understanding of the results.
+have much to gain in utilizing logistic regression. In particular, across all of 
+the coefficient estimates/odd ratios, as well as the probability values, the 
+direction of the values are consistent. For the most part, the significance of 
+the values are consistent as well, with the singular exception of the 
+"Perceived Change in Conservative Euroskepticism" coefficient losing one 
+significance star in the logistic regression model (the coefficient/probability 
+value is still significant at the 0.05 level across both models, however). With 
+that said, once again, the "value-add" of the logistic regression here is in the 
+additional nuance/understanding of the results.
 
 # IV. Conclusion
 
