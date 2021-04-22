@@ -1285,7 +1285,7 @@ plot1lm_prob <-  plot_model(intreg1a, transform = "plogis", show.values = TRUE,
            digits = 5)
 
 plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", 
-                     show.values = TRUE, 
+           show.values = TRUE,
                      axis.labels = c("Interaction",
                      "Wales",
                      "Scotland",
@@ -1328,7 +1328,7 @@ in magnitude, suggesting additional nuance.
 
 # Let's perform the Table 2 regressions using logistic regression:
 
-table2reg_logistic <- glm(switchtocons ~ merged2$EUIntegrationSelf8,
+table2reg_logistic <- glm(switchtocons ~ EUIntegrationSelf8,
                          family = binomial(link = "logit"),
                           data = merged2)
 
@@ -1384,7 +1384,7 @@ plot2lm_noprob <- plot_model(intreg2a, show.values = TRUE, value.offset = 0.3,
 
 plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE, 
            value.offset = 0.3,
-           axis.labels = c("Interaction",
+                      axis.labels = c("Interaction",
                      "Wales",
                      "Scotland",
                      "White",
@@ -1397,6 +1397,7 @@ plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE,
 # And here, we can look at the probabilities:
 
 plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE,
+           value.offset = 0.3,
                      axis.labels = c("Interaction",
                      "Wales",
                      "Scotland",
@@ -1405,11 +1406,11 @@ plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE,
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           value.offset = 0.3,
            digits = 5)
 
 plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", 
-                     show.values = TRUE, 
+           show.values = TRUE, 
+           value.offset = 0.3,
                      axis.labels = c("Interaction",
                      "Wales",
                      "Scotland",
@@ -1418,7 +1419,6 @@ plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis",
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           value.offset = 0.3,
            digits = 5)
 
 ```
@@ -1431,20 +1431,23 @@ plot_grid(plot2lm_noprob, plot2log_noprob,
           labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
-plot_grid(plot2lm_prob, plot2log_prob, 
+plot_grid(plot2lm_prob, plot2log_prob,
           labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 ```
 
-The results here indicate notable differences between the linear and logistic
-regression models, suggesting that the authors did indeed have something to
-gain (e.g. in the way of insights/findings) in utilizing logistic regression.
-Looking at the first set of graphs, which plot the model estimates and odds
-ratios, respectively, we can see that the significance of 
-
-Discuss significance/direction changes; keep in mind if initial value was
-significant, as this can explain direction changes.
+Once again, the results here suggest very small differences between the linear 
+and logistic regression models, suggesting that the authors didn't necessarily
+have something to gain in utilizing logistic regression. In particular,
+across all of the coefficient estimates/odd ratios, as well as the probability
+values, the direction of the coefficients are consistent. For the most part,
+the significance of the values are consistent as well, with the singular
+exception of the "Perceived Change in Conservative Euroskepticism" coefficient
+losing one significance star in the logistic regression model (the coefficient/
+probability value is still significant at the 0.05 level across both models,
+however). With that said, once again, the value-add of the logistic regression
+here is in the additional nuance/understanding of the results.
 
 # IV. Conclusion
 
