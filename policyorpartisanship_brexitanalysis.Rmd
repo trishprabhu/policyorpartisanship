@@ -1437,14 +1437,14 @@ plot_grid(plot2lm_prob, plot2log_prob,
 
 ```
 
+The results here indicate notable differences between the linear and logistic
+regression models, suggesting that the authors did indeed have something to
+gain (e.g. in the way of insights/findings) in utilizing logistic regression.
+Looking at the first set of graphs, which plot the model estimates and odds
+ratios, respectively, we can see that the significance of 
 
 Discuss significance/direction changes; keep in mind if initial value was
 significant, as this can explain direction changes.
-
-Logit curve; don 't have to do for all 
-plot_model(m, type = "eff", terms = "Days")
-terms -- what variables you want to explorer
-type -- what curve you wnat to create
 
 # IV. Conclusion
 
@@ -1453,6 +1453,11 @@ End with some takeaways: based on my analysis, what should be done?
 # Ignore - Delete Before Submitting:
 
 ```{r, results = 'asis'}
+
+# Logit curve; don 't have to do for all 
+# plot_model(m, type = "eff", terms = "Days")
+# terms -- what variables you want to explorer
+# type -- what curve you want to create
 
 # Look at the table, and say that the findings stay the same; the authors 
 # ultimately didn't have a ton to gain by pursuing logistic regression.
