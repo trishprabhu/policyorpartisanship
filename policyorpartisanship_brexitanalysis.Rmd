@@ -1194,9 +1194,10 @@ of an individual's pre-referendum level of Euroskepticism, have a
 binary outcome/dependent variable (partyswitcher and switchtocon are indicator
 variables, with 1 indicating defection/switching, and 0 indicating otherwise).
 As described in Gelman and Hill, "logistic regression is the standard way to 
-model binary outcomes" (Gelman and Hill 2007). What if, I wondered, I performed
-the regressions summarized in Table 1 and 2 via logistic regression? Would
-the results change; otherwise, would we be able to see any interesting findings?
+model binary outcomes" (Gelman and Hill 2007); nevertheless, the authors
+never employ it in the paper. What if, I wondered, I performed the regressions 
+summarized in Table 1 and 2 via logistic regression? Would the results change; 
+otherwise, would we see any interesting findings?
 
 ```{r, echo = FALSE}
 
@@ -1243,7 +1244,7 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
 ```{r, echo = FALSE}
 
 # Let's use the sjPlot package to plot the last model (with the interaction,
-# and all of the covariates) in both its lm() and logistic form:
+# and all of the covariates) in both its linear and logistic form:
 
 plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE, 
            axis.labels = c("Interaction",
@@ -1282,6 +1283,7 @@ plot1lm_prob <-  plot_model(intreg1a, transform = "plogis", show.values = TRUE,
                      "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
            digits = 5)
+
 plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", 
                      show.values = TRUE, 
                      axis.labels = c("Interaction",
@@ -1299,9 +1301,10 @@ plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis",
 
 ```{r, echo = FALSE}
 
-# How to get rid of "partyswitcher" heading?
+# Question for Le: How can I get rid of the "partyswitcher" heading?
 
-plot_grid(plot1lm_noprob, plot1log_noprob, 
+plot_grid(plot1lm_noprob, plot1log_noprob,
+          labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 plot_grid(plot1lm_prob, plot1log_prob, 
@@ -1365,23 +1368,56 @@ stargazer(table2reg_logistic, intreg2_logistic, intreg2a_logistic,
 ```{r, echo = FALSE}
 
 # Let's use the sjPlot package to plot the last model (with the interaction,
-# and all of the covariates) in both its lm() and logistic form:
+# and all of the covariates) in both its linear and logistic form:
 
-plot2lm_noprob <- plot_model(intreg2a, show.values = TRUE, 
-           title = "Defection Model Estimates (Lm)", value.offset = 0.3,
+plot2lm_noprob <- plot_model(intreg2a, show.values = TRUE, value.offset = 0.3,
+                      axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            digits = 5)
+
+
 plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE, 
-           title = "Defection Model Estimates (Logistic)", value.offset = 0.3,
+           value.offset = 0.3,
+           axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            digits = 5)
 
 # And here, we can look at the probabilities:
 
-plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE, 
-           title = "Defection Model Probability Estimates (Lm)", 
+plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE,
+                     axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
            digits = 5)
-plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", show.values = TRUE, 
-           title = "Defection Model Probability Estimates (Logistic)", 
+
+plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", 
+                     show.values = TRUE, 
+                     axis.labels = c("Interaction",
+                     "Wales",
+                     "Scotland",
+                     "White",
+                     "Female",
+                     "Age",
+                     "Perceived Change in Conservative Euroskepticism",
+                     "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
            digits = 5)
 
@@ -1389,10 +1425,15 @@ plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", show.values
 
 ```{r, echo = FALSE}
 
-plot2lm_noprob
-plot2log_noprob
-plot2lm_prob
-plot2log_prob
+# Question for Le: How can I get rid of the "switchtocon" heading?
+
+plot_grid(plot2lm_noprob, plot2log_noprob,
+          labels = c('Linear Regression', 'Logistic Regression'), 
+          label_size = 12)
+
+plot_grid(plot2lm_prob, plot2log_prob, 
+          labels = c('Linear Regression', 'Logistic Regression'), 
+          label_size = 12)
 
 ```
 
@@ -1404,6 +1445,8 @@ Logit curve; don 't have to do for all
 plot_model(m, type = "eff", terms = "Days")
 terms -- what variables you want to explorer
 type -- what curve you wnat to create
+
+# IV. Conclusion
 
 End with some takeaways: based on my analysis, what should be done?
 
