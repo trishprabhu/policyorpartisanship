@@ -362,9 +362,10 @@ intreg2 <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Concha
 
 # And now, let's throw everything in again:
 
+merged2$country.x <- as.factor(merged2$country.x)
+
 intreg2a <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conchange 
-              + merged2$age.x + merged2$gender.x + merged2$white + 
-                as.factor(merged2$country.x))
+              + merged2$age.x + merged2$gender.x + merged2$white + merged2$country.x)
 
 # From the paper: "A one-point increase in pre-referendum Euroskepticism 
 # generates a .7 percent increase in the probability of switching loyalties to 
@@ -627,7 +628,7 @@ BES7 <- BES7 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES7$redistSelf7 <- BES7$redistSelf
-merged2_T4 <- merge(merged2, BES7, by = "id")
+merged2 <- merge(merged2, BES7, by = "id")
 
 BES11 <- BES11 %>%
   mutate(redistSelf = case_when(redistSelf== "Government should try to make incomes equal" ~ 0,
@@ -639,7 +640,7 @@ BES11 <- BES11 %>%
                                 redistSelf == "Government should be less concerned about equal incomes" ~ 10))
 
 BES11$redistSelf11 <- BES11$redistSelf
-merged2_T4 <- merge(merged2, BES11, by = "id")
+merged2 <- merge(merged2, BES11, by = "id")
 
 # From the paper: "We now estimate the effect of joining the Conservatives on changes in 
 # attitudes towards redistribution. Our dependent variable, “Increase in 
@@ -650,7 +651,7 @@ merged2_T4 <- merge(merged2, BES11, by = "id")
 # ask about redistribution preferences." (A higher value suggests more 
 # opposition to redistribution.)
 
-merged2_T4$redistchange <- merged2_T4$redistSelf11 - merged2_T4$redistSelf7
+merged2$redistchange <- merged2$redistSelf11 - merged2$redistSelf7
 
 # From the paper: "We find a positive association between joining the 
 # Conservatives and increased opposition to redistribution: as column 1 shows, 
@@ -658,21 +659,21 @@ merged2_T4$redistchange <- merged2_T4$redistSelf11 - merged2_T4$redistSelf7
 # half-point increase in opposition to redistribution on a ten-point scale.
 
 table4reg <- lm(redistchange ~ switchtocons + white + age.x + gender.x + 
-                  country.x, data = merged2_T4)
+                  country.x, data = merged2)
 
 # People who were part of UKIP (should see negligible change, as discussed in
 # the paper, as UKIP was already very opposed to redistribution):
  
-regUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
-              + country.x, data = merged2_T4, 
+regUKIP <- lm(redistchange ~ switchtocons + white + age.x + gender.x 
+              + country.x, data = merged2, 
               partyId8 == "United Kingdom Independence Party (UKIP)")
 
 # People who were not part of UKIP -- from the paper: "the effect of joining the 
 # Conservatives on redistributive attitudes should be stronger among respondents 
 # who were not previously members of UKIP."
 
-regnonUKIP <- lm(redistchange ~ switchtocons + white + age.x +gender.x 
-                 + country.x, data = merged2_T4, 
+regnonUKIP <- lm(redistchange ~ switchtocons + white + age.x + gender.x 
+                 + country.x, data = merged2, 
                  partyId8 != "United Kingdom Independence Party (UKIP)")
 
 ```
@@ -1326,20 +1327,27 @@ in magnitude, suggesting additional nuance.
 
 ```{r, echo = FALSE}
 
+# Redefine merged2:
+
+merged2e <- merge(BES8notcons, BES9, by = "id")
+merged2e$switchtocons <- ifelse(merged2e$partyId9 == "Conservative", 1, 0)
+merged2e$Conchange <- merged2e$EUIntegrationCon9 - merged2e$EUIntegrationCon8
+merged2e$country.x <- as.factor(merged2e$country.x)
+
 # Let's perform the Table 2 regressions using logistic regression:
 
 table2reg_logistic <- glm(switchtocons ~ EUIntegrationSelf8,
                          family = binomial(link = "logit"),
-                          data = merged2)
+                          data = merged2e)
 
 intreg2_logistic <- glm(switchtocons ~ EUIntegrationSelf8 * Conchange,
                        family = binomial(link = "logit"),
-                          data = merged2)
+                          data = merged2e)
 
 intreg2a_logistic <- glm(switchtocons ~ EUIntegrationSelf8 * Conchange 
-              + age.x + gender.x + white + as.factor(country.x),
+              + age.x + gender.x + white + country.x,
               family = binomial(link = "logit"),
-                          data = merged2)
+                          data = merged2e)
 
 ```
 
