@@ -736,6 +736,10 @@ level. Finally, though not significant at the 0.05 level, the coefficient
 associated with those switching from UKIP suggests an almost negligible change
 (on a 10-point scale) in opposition to redistribution (as we'd expect).
 
+Table 4 is interesting for reasons beyond the results themselves: here, we 
+see the power of partisanship, the other side of the coin. Policy clearly 
+matters, but partisanship does too.
+
 ```{r, echo = FALSE}
 
 # Let's make the corresponding Figure 2:
@@ -1463,18 +1467,41 @@ understanding of the results.
 
 # IV. Conclusion
 
-This replication began with one key question: what drives voters -- policy, or
-partisanship? In replicating the results of "Policy or Partisanship in the 
-United Kingdom? Quasi-Experimental Evidence from Brexit," I was able to exploit
-the UK's Brexit referendum to demonstrate that, in fact, policy seems to be
-critical.
+This replication set out to answer one key question: what drives voters -- 
+policy, or partisanship? In replicating the results of "Policy or Partisanship 
+in the United Kingdom? Quasi-Experimental Evidence from Brexit," I was able to 
+exploit the United Kingdom's 2016 Brexit referendum to demonstrate that, in 
+fact, policy seems to be critical: "voters are sufficiently policy-motivated to 
+change parties if they disagree with their party on important issues" (Schonfeld 
+and Winter-Levy 2019). With that said, like the authors of the original paper,
+I did also find evidence of partisan power: for example, voters that joined the 
+Conservative Party following the Brexit referendum then adopted the Conservative 
+Party's stance on other issues, such as economic redistribution.
 
 In particular, the key findings/takeaways of this replication are:
 
+* Pre-referendum Conservative Euroskeptics were more likely to defect from
+the Conservative Party.
+* Pre-referendum non-Conservative Euroskeptics were more likely to join
+the Conservative Party.
+
 
 This paper is not without its limitations, and looking ahead, I would suggest
-that future work aim to address these limitations.
+that future work aim to address these limitations. In particular, while the
+authors' assumptions -- some explored in this report (e.g. Figure 2) -- are 
+relatively well-supported, suggesting high internal validity, it's not at all 
+clear that their findings have strong external validity, and are generalizable 
+to voters at-large/beyond the United Kingdom. Qualitative evidence from other 
+countries, particularly those with rising levels of political polarization (such 
+as the United States) suggest that we should be surprised, and indeed, somewhat
+skeptical of the broader applicability of these findings. The authors' ultimate 
+conclusion would be strengthened by performing a similar analysis in other 
+countries, as well as across different systems of government (e.g. parliamentary 
+vs. presidential). 
 
+The potential ramifications of such work are immense, for in learning more
+about voters, we learn more about democracy, that "government of the people, by 
+the people, for the people" (Lincoln 1863).
 
 # Ignore - Delete Before Submitting:
 
