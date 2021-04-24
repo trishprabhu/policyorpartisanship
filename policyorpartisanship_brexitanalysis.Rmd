@@ -17,8 +17,8 @@ Thanks also to my "Room 4" group; you made this class fun and memorable.
 
 # I. Introduction: Overview of Original Paper
 
-This replication examines the paper "Policy or Partisanship: Replicating Results 
-From An Analysis of Quasi-Experimental Evidence From Brexit." In the paper, the
+This replication examines the paper "Policy or Partisanship in the United 
+Kingdom? Quasi-Experimental Evidence from Brexit." In the paper, the
 authors aim to explore one key question: "are voters motivated by policy
 preferences, or partisan identities?" (Schonfeld and Winter-Levy 2019). The 
 authors answer the question in the context of the UK's political system, 
@@ -1321,9 +1321,11 @@ coefficient estimates change. With that said, we do get a clearer, more nuanced
 picture of the results with an odds ratio interpretation; specifically, it more
 concretely allows us to compare the relative magnitudes of the various 
 coefficients. The same is true in the case of the probability values: while, 
-across both linear and logistic, the direction/significance of probabilities 
-stay the same, we do see the logistic probability estimates vary a bit more
+across both linear and logistic, the significance of the probability values stay 
+the same, we do see that the logistic probability estimates vary a bit more
 in magnitude, suggesting additional nuance.
+
+*Confirm that the above (in particular, the last sentence) is okay!
 
 ```{r, echo = FALSE}
 
@@ -1448,18 +1450,31 @@ plot_grid(plot2lm_prob, plot2log_prob,
 Once again, the results here indicate little to no difference between the linear 
 and logistic regression models, suggesting that the authors didn't necessarily
 have much to gain in utilizing logistic regression. In particular, across all of 
-the coefficient estimates/odd ratios, as well as the probability values, the 
-direction of the values are consistent. For the most part, the significance of 
-the values are consistent as well, with the singular exception of the 
-"Perceived Change in Conservative Euroskepticism" coefficient losing one 
-significance star in the logistic regression model (the coefficient/probability 
-value is still significant at the 0.05 level across both models, however). With 
-that said, once again, the "value-add" of the logistic regression here is in the 
-additional nuance/understanding of the results.
+the coefficient estimates/odd ratios, the direction of the values are consistent.
+For the most part, the significance of the values are consistent as well, with 
+the singular exception of the "Perceived Change in Conservative Euroskepticism" 
+coefficient, which loses one significance star in the logistic regression model 
+(note, though, that its coefficient and probability values are still significant 
+at the 0.05 level across both models). With that said, once again, the 
+"value-add" of the logistic regression here is in the additional nuance/
+understanding of the results.
+
+*Confirm that the above is okay!
 
 # IV. Conclusion
 
-End with some takeaways: based on my analysis, what should be done?
+This replication began with one key question: what drives voters -- policy, or
+partisanship? In replicating the results of "Policy or Partisanship in the 
+United Kingdom? Quasi-Experimental Evidence from Brexit," I was able to exploit
+the UK's Brexit referendum to demonstrate that, in fact, policy seems to be
+critical.
+
+In particular, the key findings/takeaways of this replication are:
+
+
+This paper is not without its limitations, and looking ahead, I would suggest
+that future work aim to address these limitations.
+
 
 # Ignore - Delete Before Submitting:
 
