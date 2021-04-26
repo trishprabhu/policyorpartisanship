@@ -1261,7 +1261,8 @@ plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE,
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Linear")
 
 plot1log_noprob <- plot_model(intreg1a_logistic, show.values = TRUE,
                     axis.labels = c("Interaction",
@@ -1273,7 +1274,8 @@ plot1log_noprob <- plot_model(intreg1a_logistic, show.values = TRUE,
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
                     value.offset = 0.3,
-           digits = 5)
+                    prefix.labels = "none",
+           digits = 5) + labs(title = "Logistic")
 
 # And here, we can look at the probabilities:
 
@@ -1287,7 +1289,8 @@ plot1lm_prob <-  plot_model(intreg1a, transform = "plogis", show.values = TRUE,
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Linear")
 
 plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis", 
            show.values = TRUE,
@@ -1300,20 +1303,17 @@ plot1log_prob <- plot_model(intreg1a_logistic, transform = "plogis",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
            value.offset = 0.3,
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Logistic")
 
 ```
 
 ```{r, echo = FALSE}
 
-# Question for Le: How can I get rid of the "partyswitcher" heading?
-
 plot_grid(plot1lm_noprob, plot1log_noprob,
-          labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 plot_grid(plot1lm_prob, plot1log_prob, 
-          labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 ```
@@ -1329,7 +1329,9 @@ across both linear and logistic, the significance of the probability values stay
 the same, we do see that the logistic probability estimates vary a bit more
 in magnitude, suggesting additional nuance.
 
-*Confirm that the above (in particular, the last sentence) is okay!
+^Add to this last sentence that the difference in standard error means that
+the logistic regression reflects more uncertainty.
+
 
 ```{r, echo = FALSE}
 
@@ -1393,7 +1395,8 @@ plot2lm_noprob <- plot_model(intreg2a, show.values = TRUE, value.offset = 0.3,
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           digits = 5)
+                     prefix.labels = "none",
+           digits = 5) + labs(title = "Linear")
 
 
 plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE, 
@@ -1406,7 +1409,8 @@ plot2log_noprob <- plot_model(intreg2a_logistic, show.values = TRUE,
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Logistic")
 
 # And here, we can look at the probabilities:
 
@@ -1420,7 +1424,8 @@ plot2lm_prob <-  plot_model(intreg2a, transform = "plogis", show.values = TRUE,
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Linear")
 
 plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis", 
            show.values = TRUE, 
@@ -1433,20 +1438,17 @@ plot2log_prob <- plot_model(intreg2a_logistic, transform = "plogis",
                      "Age",
                      "Perceived Change in Conservative Euroskepticism",
                      "Pre-Referendum Euroskepticism"),
-           digits = 5)
+           prefix.labels = "none",
+           digits = 5) + labs(title = "Logistic")
 
 ```
 
 ```{r, echo = FALSE}
 
-# Question for Le: How can I get rid of the "switchtocon" heading?
-
 plot_grid(plot2lm_noprob, plot2log_noprob,
-          labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 plot_grid(plot2lm_prob, plot2log_prob,
-          labels = c('Linear Regression', 'Logistic Regression'), 
           label_size = 12)
 
 ```
@@ -1463,7 +1465,8 @@ at the 0.05 level across both models). With that said, once again, the
 "value-add" of the logistic regression here is in the additional nuance/
 understanding of the results.
 
-*Confirm that the above is okay!
+^Mention SE thing here as well; this is what is causing that loss of the
+significance star!
 
 # IV. Conclusion
 
@@ -1484,7 +1487,7 @@ In particular, the key findings/takeaways of this replication are:
 the Conservative Party.
 * Pre-referendum non-Conservative Euroskeptics were more likely to join
 the Conservative Party.
-
+...
 
 This paper is not without its limitations, and looking ahead, I would suggest
 that future work aim to address these limitations. In particular, while the
@@ -1502,6 +1505,14 @@ vs. presidential).
 The potential ramifications of such work are immense, for in learning more
 about voters, we learn more about democracy, that "government of the people, by 
 the people, for the people" (Lincoln 1863).
+
+External validity: examine more realistic settings, use different measurement
+techniques 
+
+Technical suggestion: 
+Ultimately, it's important to note that the effect size of the key dependent
+variables analyzed in this paper's regressions was relatively small; this
+merits 
 
 # Ignore - Delete Before Submitting:
 
