@@ -372,7 +372,7 @@ intreg2a <- lm(merged2$switchtocons ~ merged2$EUIntegrationSelf8 * merged2$Conch
 # the Conservatives. And the interaction term is positive and significant, 
 # indicating that Euroskeptic non-Conservatives who perceived an increase in 
 # Conservative Euroskepticism following the referendum were especially likely to 
-#join the Conservatives."
+# join the Conservatives."
 
 ```
 
@@ -1327,11 +1327,10 @@ concretely allows us to compare the relative magnitudes of the various
 coefficients. The same is true in the case of the probability values: while, 
 across both linear and logistic, the significance of the probability values stay 
 the same, we do see that the logistic probability estimates vary a bit more
-in magnitude, suggesting additional nuance.
-
-^Add to this last sentence that the difference in standard error means that
-the logistic regression reflects more uncertainty.
-
+in magnitude, suggesting additional nuance. Indeed, both the logistic odds
+ratios and probability estimates have larger standard errors; this implies
+that the logistic regression ultimately captures and reflects more uncertainty, 
+a key area of "value-add" in interpreting the results.
 
 ```{r, echo = FALSE}
 
@@ -1461,12 +1460,12 @@ For the most part, the significance of the values are consistent as well, with
 the singular exception of the "Perceived Change in Conservative Euroskepticism" 
 coefficient, which loses one significance star in the logistic regression model 
 (note, though, that its coefficient and probability values are still significant 
-at the 0.05 level across both models). With that said, once again, the 
-"value-add" of the logistic regression here is in the additional nuance/
+at the 0.05 level across both models). This is likely due to the fact that (as 
+is visually apparent) for both the odds ratios and probabilities, once again, 
+the logistic regression values have larger standard errors; the model clearly 
+captures and reflects additional uncertainty. Ultimately, then, like Table 1,
+the "value-add" of the logistic regression is in the additional nuance around/
 understanding of the results.
-
-^Mention SE thing here as well; this is what is causing that loss of the
-significance star!
 
 # IV. Conclusion
 
@@ -1513,84 +1512,6 @@ Technical suggestion:
 Ultimately, it's important to note that the effect size of the key dependent
 variables analyzed in this paper's regressions was relatively small; this
 merits 
-
-# Ignore - Delete Before Submitting:
-
-```{r, results = 'asis'}
-
-# Logit curve; don 't have to do for all 
-# plot_model(m, type = "eff", terms = "Days")
-# terms -- what variables you want to explorer
-# type -- what curve you want to create
-
-# Look at the table, and say that the findings stay the same; the authors 
-# ultimately didn't have a ton to gain by pursuing logistic regression.
-
-# Le: Maybe look at interaction and the other 2 model
-# sjPlot; plot_model - compare to linear model
-
-# Let's look at the null and residual deviance for our last model:
-
-pchisq(3209.2 - 3176.4, 6215 - 6207, lower = FALSE)
-
-# We're definitely in the tail, which suggests that our model is statistically 
-# different from the mean model. That's good!
-
-# Let's look at the odds ratios:
-
-exp(table1reg_logistic$coefficients[])
-
-# Question for Le: How should I interpret/consider the logistic regression
-# approach -- in particular, how should I compare it to the "regular" lm
-# approach utilized in the paper?
-
-# Can plot some graphs -- look at the magnitudes across the scales of indep.
-# variable. 
-
-merged %>% 
-  ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
-  geom_point() +
-  stat_smooth(method = "glm", se = FALSE,
-              method.args = list(binomial(link = "logit"))) +
-  theme_minimal() +
-  labs(title = "Logistic regression is...",
-       subtitle = "")
-
-
-merged %>% 
-  ggplot(aes(EUIntegrationSelf8, partyswitcher)) +
-  geom_point() +
-  stat_smooth(method = "lm", se = FALSE) +
-  theme_minimal() +
-  labs(title = "Linear regression is...",
-       subtitle = "")
-
-binnedplot(x = intreg1a_logistic$fitted.values, 
-           y = resid(intreg1a_logistic, type = "response"))
-
-# Can do some inverse-logit/predict -- can define high level and a low level; compare
-# 1 to 2, 2 to 3, etc. -- and discuss your findings in your report.
-
-# Initial attempt at interpretation of Table 1 logistic regressions:
-
-# Here, for each model, we calculate the odds ratio of the various coefficients; the odds
-# ratio represents: P/1-P (or the probability of leaving the Conservatives/the
-# probability of not leaving the Conservatives). With that said, if the value of
-# an odds ratio is > 1, then the ratio suggests the predictor is associated with
-# an increase in the probability of leaving the Conservatives. The magnitude of 
-# that effect can be directly compared via the numbers, with adjustment for 
-# variation via multiplication by the standard deviation.
-
-# Let's consider the most simple regression/model: 
-
-# The odds ratio for EUIntegrationSelf8 is 0.9672463; this suggests that a one-unit increase
-# in pre-referendum Euroskepticism is associated with a decrease in the
-# probability of defection from the Conservatives (as we would predict, given
-# that the Conservatives adopt an anti-integration view post-referendum).
-
-#...
-
-```
 
 # IV. Bibliography
 
