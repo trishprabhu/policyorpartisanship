@@ -18,14 +18,14 @@ Thanks also to my "Room 4" group; you made this class fun and memorable.
 # I. Introduction: Overview of Original Paper
 
 This replication examines the paper "Policy or Partisanship in the United 
-Kingdom? Quasi-Experimental Evidence from Brexit." In the paper, the
-authors aim to explore one key question: "are voters motivated by policy
-preferences, or partisan identities?" (Schonfeld and Winter-Levy 2019). The 
-authors answer the question in the context of the UK's political system, 
-exploiting the UK’s Brexit referendum -- which caused an abrupt change in the 
-British Conservative Party’s stance on leaving the European Union, and via a 
-vote "so narrow that it was more or less a coin flip" (Schonfeld and Winter-Levy 
-2019). The authors’ methodology is relatively simple: they employ an 
+Kingdom? Quasi-Experimental Evidence from Brexit" (Schonfeld and Winter-Levy 
+2019). In the paper, the authors aim to explore one key question: "are voters 
+motivated by policy preferences, or partisan identities?" (Schonfeld and 
+Winter-Levy 2019). The authors answer the question in the context of the UK's 
+political system, exploiting the UK’s Brexit referendum -- which caused an abrupt 
+change in the British Conservative Party’s stance on leaving the European Union, 
+and via a vote "so narrow that it was more or less a coin flip" (Schonfeld and
+Winter-Levy 2019). The authors’ methodology is relatively simple: they employ an 
 uninterrupted time-series design, examining panel survey data from the British 
 Election Study to compare referendum attitudes and party affiliation in the data 
 immediately before and after the referendum (“Wave 8” and “Wave 9” data, 
@@ -1533,3 +1533,7 @@ the people, for the people" (Lincoln 1863).
 https://poseidon01.ssrn.com/delivery.php?ID=527000067124025067095113075070106108039003024042071075093075112088116127097094006067114102007027106035006118101118066012029092005082039040022085029077121099027079010057077009093030070064114126083093115081011094012094102027115097065022064028007111101001&EXT=pdf&INDEX=TRUE
 
 https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP
+
+Gelman and Hill; chapter on Logistic Regression
+
+https://www.rdocumentation.org/packages/sjPlot/versions/2.8.7/topics/plot_model
