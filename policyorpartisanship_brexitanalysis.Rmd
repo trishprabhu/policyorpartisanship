@@ -55,10 +55,13 @@ results/conclusions are discussed in detail in the next section.
 In the next section, I replicate ^[The data and code used in the report can be 
 obtained here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP] 
 the authors' main results (6 tables and 2 figures), providing my analyses/
-interpretation. Then, in the third section, I consider ways to extend the 
-authors' work, in this case, by employing another regression method particularly 
-suited to analyses with binary outcomes (such as switching parties) -- logistic 
-regression.
+interpretation (which confirm the authors' conclusions). Like the authors, I 
+used linear regression models to produce these results. Then, in the third 
+section, I consider ways to extend the authors' work, in this case, by employing 
+another regression method particularly suited to analyses with binary outcomes 
+(such as switching parties) -- logistic regression. As discussed in that section, 
+the implications of such work are a more nuanced picture (e.g. a better 
+understanding of uncertainty, etc.) of the results.
 
 # II. Replicated Results and Discussion
 
@@ -1192,16 +1195,17 @@ Party in 2017. Once again, this coefficient is significant at the 0.001 level.
 
 In replicating the results of this paper, I noticed an area for potential 
 extension of the authors' original results: as discussed above, Tables 1 and
-2, which examine the probability of defecting from the Conservative Party and 
-probability of switching to the Conservative Party, respectively, as a function 
-of an individual's pre-referendum level of Euroskepticism, have a
-binary outcome/dependent variable (partyswitcher and switchtocon are indicator
-variables, with 1 indicating defection/switching, and 0 indicating otherwise).
-As described in Gelman and Hill, "logistic regression is the standard way to 
-model binary outcomes" (Gelman and Hill 2007); nevertheless, the authors
-never employ it in the paper. What if, I wondered, I performed the regressions 
-summarized in Table 1 and 2 via logistic regression? Would the results change; 
-otherwise, would we see any interesting findings?
+2, which examine the probability of defecting from and switching to the 
+Conservative Party, respectively, as a function of an individual's 
+pre-referendum level of Euroskepticism (recall that this was the authors' main 
+area of investigation), have a binary outcome/dependent variable (partyswitcher 
+and switchtocon are indicator variables, with 1 indicating defection/switching, 
+and 0 indicating otherwise). As described in Gelman and Hill, "logistic 
+regression is the standard way to model binary outcomes" (Gelman and Hill 2007); 
+nevertheless, the authors never employ it in the paper. What if, I wondered, 
+I performed the regressions summarized in Table 1 and 2 (the paper's key
+findings) via logistic regression? Would the results change; otherwise, would we 
+see any interesting findings?
 
 ```{r, echo = FALSE}
 
