@@ -53,15 +53,16 @@ of redistribution, they find that this is indeed the case. The authors' other
 results/conclusions are discussed in detail in the next section.
 
 In the next section, I replicate ^[The data and code used in the report can be 
-obtained here: . The original data/code is cited in the "References" section
-below.] the authors' main results (6 tables and 2 figures), providing my analyses/
-interpretation (which confirm the authors' conclusions). Like the authors, I 
-used linear regression models to produce these results. Then, in the third 
-section, I consider ways to extend the authors' work, in this case, by employing 
-another regression method particularly suited to analyses with binary outcomes 
-(such as switching parties) -- logistic regression. As discussed in that section, 
-the implications of such work are a more nuanced picture (e.g. a better 
-understanding of uncertainty, etc.) of the results.
+obtained here: https://github.com/trishprabhu/policyorpartisanship. The original 
+data/code is cited in the "References" section below.] the authors' main results 
+(6 tables and 2 figures), providing my analyses/interpretation (which confirm 
+the authors' conclusions). Like the authors, I used linear regression models to 
+produce these results. Then, in the third section, I consider ways to extend the
+authors' work, in this case, by employing another regression method particularly 
+suited to analyses with binary outcomes (such as switching parties) -- logistic 
+regression. As discussed in that section, the implications of such work are a 
+more nuanced picture (e.g. a better understanding of uncertainty, etc.) of the 
+results.
 
 # II. Replicated Results and Discussion
 
