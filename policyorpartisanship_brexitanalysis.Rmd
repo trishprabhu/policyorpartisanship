@@ -53,8 +53,8 @@ of redistribution, they find that this is indeed the case. The authors' other
 results/conclusions are discussed in detail in the next section.
 
 In the next section, I replicate ^[The data and code used in the report can be 
-obtained here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP] 
-the authors' main results (6 tables and 2 figures), providing my analyses/
+obtained here: . The original data/code is cited in the "References" section
+below.] the authors' main results (6 tables and 2 figures), providing my analyses/
 interpretation (which confirm the authors' conclusions). Like the authors, I 
 used linear regression models to produce these results. Then, in the third 
 section, I consider ways to extend the authors' work, in this case, by employing 
@@ -1534,11 +1534,11 @@ the people, for the people" (Lincoln 1863).
 
 # IV. Bibliography
 
+Gelman, Andrew, and Jennifer Hill. “Chapter 5: Logistic Regression.” Data Analysis Using Regression and Multilevel/Hierarchal Models, by and , Cambridge University Press, 2007, pp. 79–105.
+
+“Plot_model: Plot Regression Models.” RDocumentation, Datacamp, www.rdocumentation.org/packages/sjPlot/versions/2.8.7/topics/plot_model.
+
+“Replication Data For: Policy or Partisanship in the United Kingdom? Quasi-Experimental Evidence from Brexit.” Harvard Dataverse, The Journal of Politics Dataverse, 2020, dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP.
+
 Schonfeld, Bryan, and Sam Winter-Levy. “Policy or Partisanship in the United Kingdom? 
 Quasi-Experimental Evidence from Brexit.” SSRN, Social Science Research Network, 28 Mar. 2019, papers.ssrn.com/sol3/papers.cfm?abstract_id=3373348.
-
-https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP
-
-Gelman and Hill; chapter on Logistic Regression
-
-https://www.rdocumentation.org/packages/sjPlot/versions/2.8.7/topics/plot_model
