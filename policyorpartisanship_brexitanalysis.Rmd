@@ -66,6 +66,9 @@ results.
 
 # II. Replicated Results and Discussion
 
+In this section, I replicate all of the authors' results (6 tables and 2
+figures).
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
