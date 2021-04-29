@@ -1532,9 +1532,11 @@ The potential ramifications of such work are immense, for in learning more
 about voters, we learn more about democracy, that "government of the people, by 
 the people, for the people" (Lincoln 1863).
 
-# IV. Bibliography
+# V. Bibliography
 
 Gelman, Andrew, and Jennifer Hill. “Chapter 5: Logistic Regression.” Data Analysis Using Regression and Multilevel/Hierarchal Models, by and , Cambridge University Press, 2007, pp. 79–105.
+
+Lincoln, Abraham. “The Gettysburg Address.” Abrahamlincolnonline.org. In-Person.
 
 “Plot_model: Plot Regression Models.” RDocumentation, Datacamp, www.rdocumentation.org/packages/sjPlot/versions/2.8.7/topics/plot_model.
 
