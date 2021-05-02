@@ -960,12 +960,13 @@ g11
 
 ```
 
-Figure 2 (both graphs) supports Table 4; in particular, they help support our 
-assumption that affiliating with the Conservative Party should -- if partisan
-affiliation influences policy preferences -- lead to an increase in opposition
-to redistribution. As the graphs show, "the Conservatives were the most 
-anti-redistribution party in both Wave 7 – before the referendum – and Wave 11
-– after the referendum" (Schonfeld and Winter-Levy 2019).
+Figure 2 (both graphs) supports/strengthens the results in Table 4; in 
+particular, the graphs help support our assumption that affiliating with the
+Conservative Party should (if partisan affiliation influences policy 
+preferences -- as we find they do!) lead to an increase in opposition to 
+redistribution. As the graphs show, "the Conservatives were the most 
+anti-redistribution party in both Wave 7 – before the referendum – and Wave 11 – 
+after the referendum" (Schonfeld and Winter-Levy 2019).
 
 ```{r, echo = FALSE}
 
@@ -1141,7 +1142,8 @@ The first regression's coefficient suggests that a one-point increase (on a
 probability of leaving the Conservative Party in the 2017 election (note that 
 the value of the coefficient remains similar across the 3 regressions). This 
 coefficient is significant at the 0.001 level (and remains so across the 3 
-regressions).
+regressions). There is, then, a relatively strong negative relationship between
+Euroskepticism in 2015 and leaving the Conservatives in 2017.
 
 ```{r, echo = FALSE}
 
