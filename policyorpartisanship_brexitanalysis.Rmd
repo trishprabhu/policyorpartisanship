@@ -755,7 +755,7 @@ As Table 4 shows us, overall, switching to the Conservative Party is associated
 with a 0.542 point increase in the level of opposition to redistribution on
 a ten-point scale; this coefficient is significant at the 0.001 level. As
 we'd expect, this value is even larger -- 0.605 -- for those switching from
-a non-UKIP party; further, the coefficient remains significant at the 0.01 
+a non-UKIP party; further, the coefficient remains significant at the 0.001 
 level. Finally, though not significant at the 0.05 level, the coefficient 
 associated with those switching from UKIP suggests an almost negligible change
 (on a 10-point scale) in opposition to redistribution (as we'd expect).
