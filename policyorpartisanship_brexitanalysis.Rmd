@@ -69,6 +69,14 @@ results.
 In this section, I replicate all of the authors' results (6 tables and 2
 figures).
 
+As an overarching note: the discussion below includes some discussion of the
+significance of coefficients; the presented tables also include significance stars.
+I only included significance stars to match my results with those of the authors;
+further, I limited my discussion of significance to observation (as opposed to
+normative judgment). These choices were made to reflect the values of this class:
+namely, that significance is an abstract concept that should not be the end-all
+be-all of our analyses.
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
@@ -303,13 +311,19 @@ Euroskepticism (on a 0 - 10 scale) pre-referendum; in 2 other regressions, I
 also included the perceived change in Euroskepticism of Conservatives as an 
 interaction, as well as threw in a range of demographic information (e.g. age, gender, 
 etc.). The coefficient associated with the first regression, which is significant at 
-the 0.05 level, suggests that "a one-point increase in pre-referendum 
-Euroskepticism yields a 0.3 percent decrease in the probability of defection" 
-(Schonfeld and Winter-Levy 2019). The interaction coefficient in the second/third 
-column of the data is also significant at the 0.05 level; the negative value 
-indicates that " less Euroskeptic Conservatives who perceive that the party has 
+the 0.05 level, suggests that a one-unit increase (1 point on the 10 point
+scale) in pre-referendum Euroskepticism is associated with a 0.3% decrease in 
+the probability of defection. The interaction coefficient in the second/third 
+column of the table is also significant at the 0.05 level; the negative value 
+indicates that "less Euroskeptic Conservatives who perceive that the party has 
 become increasingly Euroskeptic are especially likely to reject it" (Schonfeld 
 and Winter-Levy 2019). Policy, not partisanship, it seems, is what matters.
+
+Note that in the third regression (which includes the range of demographic info.),
+the significance of the "Pre-Referendum Euroskepticism" coefficient disappears,
+and the size of the associated effect becomes smaller. With that said, we don't
+simply include/discard results based on their significance, so (like the authors,) 
+I left these results in. I follow this principle throughout this replication.
 
 ```{r, echo = FALSE}
 
@@ -405,21 +419,25 @@ stargazer(table2reg, intreg2, intreg2a,
 
 ```
 
-That conclusion was strengthened upon creating/examining Table 2. Here, I
-followed the same steps as I did to create Table 1, with alterations to examine
-not defection, but joining the Conservatives. Thus, like the authors, I subsetted 
-to pre-referendum (Wave 8) non-Conservatives, which I merged with the Wave 9 data, 
-and created a switching variable "switchtocons" that indicated joining the 
-Conservative Party  -- a Wave 8 unit that reported affiliating with the 
-Conservative Party in Wave 9. I repeated the 3 same regressions as in Table 1, 
-regressing my new switching variable, "switchtocons," on pre-referendum 
-self-reported levels of Euroskepticism, including perceived changes in the 
-Euroskepticism of the Conservative Party as an interaction, and finally, 
+The "policy matters" conclusion was strengthened upon creating/examining Table 2. 
+Here, I followed the same steps as I did to create Table 1, with alterations to 
+examine not defection, but joining the Conservatives. Thus, like the authors, I
+subsetted  to pre-referendum (Wave 8) non-Conservatives, which I merged with the 
+Wave 9 data, and created a switching variable "switchtocons" that indicated 
+joining the Conservative Party  -- a Wave 8 unit that reported affiliating with
+the Conservative Party in Wave 9. I repeated the 3 same regressions as in Table 1:
+1) regressing my new switching variable, "switchtocons," on pre-referendum 
+self-reported levels of Euroskepticism, 2) including perceived changes in the 
+Euroskepticism of the Conservative Party as an interaction, and finally, 3)
 throwing a number of relevant predictors in. The "policy matters" finding held: 
 as reported in the paper, the coefficient associated with the first regression, 
-significant at the 0.001 level, suggests "a one-point increase in pre-referendum 
-Euroskepticism generates a .7 percent increase in the probability of switching
-loyalties to the Conservatives" (Schonfeld and Winter-Levy 2019).
+significant at the 0.001 level, suggests a one-unit increase in pre-referendum 
+Euroskepticism is associated with a 0.7% increase in the probability of joining 
+the Conservative Party.
+
+Note that unlike in Table 1, here, in the third regression (which includes the 
+range of demographic info.), the "Pre-Referendum Euroskepticism" coefficient
+remains significant at the 0.001 level.
 
 ```{r, echo = FALSE, warnings = FALSE, message = FALSE}
 
@@ -522,9 +540,9 @@ dataset ("very strong" Conservatives, and those that are not), I then regressed
 "Euroskepticismchange" on perceived increase in Conservative Euroskepticism. As 
 Table 3 indicates, "there is a clear, statistically significant, positive 
 relationship between Conservative partisans’ perception of their party’s 
-increasing Euroskepticism and their own Euroskepticism"; the value of the 
-coefficient is higher for self-characterized "Very strong" Conservatives, as 
-we'd expect.
+increasing Euroskepticism and their own Euroskepticism" (Schonfeld and 
+Winter-Levy 2019).; the value of the coefficient is higher for self-characterized 
+"Very strong" Conservatives, as we'd infer/expect.
 
 Does this negate the authors' conclusion that policy rules over partisanship/
 party affiliation? The authors argue no, not really -- as we can see in Table 3, 
@@ -1118,12 +1136,12 @@ in 2015; in 2 other regressions, I added perceived changes in the Euroskepticism
 of the Conservative Party as an interaction, as well as threw in a bunch of 
 relevant covariates.
 
-The results suggest that there is a relatively strong negative relationship 
-between 2015 Euroskepticism and the likelihood of defecting from the 
-Conservative Party in the 2017 election; indeed, "a one-unit increase in 
-Euroskepticism (on the ten-point scale) in 2015 makes someone 2.9 percent less 
-likely to abandon the Conservatives in the 2017 election." This coefficient
-is significant at the 0.001 level.
+The first regression's coefficient suggests that a one-point increase (on a 
+10-point scale) in 2015 Euroskepticism is associated with a 2.9% decrease in the
+probability of leaving the Conservative Party in the 2017 election (note that 
+the value of the coefficient remains similar across the 3 regressions). This 
+coefficient is significant at the 0.001 level (and remains so across the 3 
+regressions).
 
 ```{r, echo = FALSE}
 
@@ -1183,16 +1201,19 @@ What about non-Conservatives? In Table 6, the authors extend their analysis in
 Table 5 to answer exactly that question. Here, I began by looking at individuals 
 who reported not voting for the Conservative Party in 2015 (pre-referendum); 
 I then created a "switchtocon" variable that indicated if a given unit ultimately 
-switched to the Conservative Party in 2017. Once again, I regressed my 
-"switchtocon" variable on voters' level of Euroskepticism in 2015, creating
+switched to (voted for) the Conservative Party in 2017. Once again, I regressed my 
+"switchtocon" variable on voters' level of Euroskepticism in 2015, and then created
 2 other regressions, 1 with perceived changes in the Euroskepticism of the 
 Conservative Party as an interaction, and another with a number of additional
 covariates.
 
 The results suggest the relationship we'd expect: a one-unit increase (on a 10-
 point scale) in a non-Conservative voter's level of Euroskepticism in 2015 is 
-associated with a 4.7% increase in the likelihood of voting for the Conservative
-Party in 2017. Once again, this coefficient is significant at the 0.001 level.
+associated with a 4.7% increase in the probability of voting for the Conservative
+Party in 2017 (once again, the value of this coefficient, associated with the
+first regression, remains similar across the 3 regressions). Once again, this 
+coefficient is also significant at the 0.001 level (and remains so across the 3 
+regressions).
 
 # III. Extension
 
@@ -1492,7 +1513,7 @@ In particular, the key findings/takeaways of this replication are:
 likely to defect from the Conservative Party (this supports the "policy" 
 narrative).
 * In addition, pre-referendum Euroskeptic non-Conservatives were more likely to
-join the Conservative Party.
+join the Conservative Party (this also supports the "policy" story).
 * There was a direct relationship between Conservatives' perception of the 
 party's changing position on the issue of EU membership and their own 
 Euroskepticism; this was particularly true for "Strong" conservatives.
