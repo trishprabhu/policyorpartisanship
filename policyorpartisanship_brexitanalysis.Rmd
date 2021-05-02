@@ -737,14 +737,14 @@ shapes the development of voters' policy preferences" (Schonfeld and Winter-Levy
 To answer this question, the authors selected redistribution as the policy issue
 they examined; they noted that it remains a key political issue in the UK 
 (Schonfeld and Winter-Levy 2019). I began by looking at Waves 7 and 11 (the pre
-and post-referendum surveys that ask
-about redistribution). Like the authors, I created a new variable, "redistchange,"
-which represents the change in the level of opposition to redistribution between
-the 2 waves (a positive value suggests an increase in opposition). I then 
+and post-referendum surveys that asked participants about redistribution). Like 
+the authors, I created a new variable, "redistchange," which represents the 
+change in a given unit's level of opposition to redistribution between the 
+2 waves (a positive value suggests an increase in opposition). I then 
 regressed this variable on our "switchtocons" variable (an indicator of whether
-a given unit switched to the Conservative Party). I do this for the general 
+a given unit switched to the Conservative Party). I did this for the general 
 dataset, as well as for 2 other specific datasets, one representing units that
-switched to Conservative from the United Kingdom Independence Party (UKIP),
+switched to the Conservatives from the United Kingdom Independence Party (UKIP),
 and another representing units that did not switch from UKIP. UKIP is a 
 right-wing populist party already quite opposed to redistribution; with that 
 said, "the effect of joining the Conservatives on redistributive attitudes 
