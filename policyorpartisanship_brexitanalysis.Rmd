@@ -1117,6 +1117,7 @@ stargazer(GG, HH, II,
           dep.var.labels   = "Defected from Conservatives",
           font.size = "tiny",
           header = FALSE,
+          table.placement = "H",
           star.cutoffs = c(0.05, 0.01, 0.001))
 
 # From the paper: "We find a consistent negative relationship between 2015 
