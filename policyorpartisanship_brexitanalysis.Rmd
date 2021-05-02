@@ -545,11 +545,11 @@ Winter-Levy 2019).; the value of the coefficient is higher for self-characterize
 "Very strong" Conservatives, as we'd infer/expect.
 
 Does this negate the authors' conclusion that policy rules over partisanship/
-party affiliation? The authors argue no, not really -- as we can see in Table 3, 
-"even for very strong Conservatives, a one-unit increase in perceived 
-Conservative Euroskepticism on a ten-point scale yields only a 0.22-unit 
-increase in personal Euroskepticism" (Schonfeld and Winter-Levy 2019), a 
-relatively small value. Note that this value is significant at the 0.001 level.
+party affiliation? The authors argue no, not really -- as we can see in Table 3,
+the size of the effect explored is small; indeed, for "very strong" Conservatives,
+a one-point increase in perceived Conservative Euroskepticism is associated with
+just a 0.22 point increase (on a 10-point scale) in a unit's level of 
+Euroskepticism. Note, though, that this value is significant at the 0.001 level.
 
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
 
