@@ -1354,12 +1354,12 @@ plot_grid(plot1lm_prob, plot1log_prob,
 
 ```
 
-The results above suggest that in the case of Table 1, the authors ultimately 
-didn't have a lot to gain in utilizing logistic regression instead of linear 
-regression; neither the significance nor the direction of any of the 
-coefficient estimates change. With that said, we do get a clearer, more nuanced 
-picture of the results with an odds ratio interpretation; specifically, it more
-concretely allows us to compare the relative magnitudes of the various 
+The results above suggest that in the case of Table 1, the authors didn't 
+necessarily have much to gain substantively in utilizing logistic regression 
+instead of linear regression; neither the significance nor the direction of any 
+of the coefficient estimates change. With that said, we do get a clearer, more 
+nuanced picture of the results with an odds ratio interpretation; specifically,
+it more concretely allows us to compare the relative magnitudes of the various 
 coefficients. The same is true in the case of the probability values: while, 
 across both linear and logistic, the significance of the probability values stay 
 the same, we do see that the logistic probability estimates vary a bit more
@@ -1367,6 +1367,9 @@ in magnitude, suggesting additional nuance. Indeed, both the logistic odds
 ratios and probability estimates have larger standard errors; this implies
 that the logistic regression ultimately captures and reflects more uncertainty, 
 a key area of "value-add" in interpreting the results.
+
+^*Change this to include additional discussion of the larger SEs (numerical,
+as seen in the table) associated with the logistic regression!
 
 ```{r, echo = FALSE}
 
@@ -1488,9 +1491,8 @@ plot_grid(plot2lm_prob, plot2log_prob,
 
 ```
 
-Once again, the results here indicate little to no difference between the linear 
-and logistic regression models, suggesting that the authors didn't necessarily
-have much to gain in utilizing logistic regression. In particular, across all of 
+Once again, the results here indicate little to no substantive difference 
+between the linear and logistic regression models. In particular, across all of 
 the coefficient estimates/odd ratios, the direction of the values are consistent.
 For the most part, the significance of the values are consistent as well, with 
 the singular exception of the "Perceived Change in Conservative Euroskepticism" 
@@ -1499,7 +1501,9 @@ coefficient, which loses one significance star in the logistic regression model
 at the 0.05 level across both models). This is likely due to the fact that (as 
 is visually apparent) for both the odds ratios and probabilities, once again, 
 the logistic regression values have larger standard errors; the model clearly 
-captures and reflects additional uncertainty. Ultimately, then, like Table 1,
+captures and reflects additional uncertainty. *Add onto this!
+
+Ultimately, then, like Table 1,
 the "value-add" of the logistic regression is in the additional nuance around/
 understanding of the results.
 
@@ -1541,7 +1545,7 @@ My extension found:
 substantive results of the paper, it did add additional nuance/understanding to
 interpretation of the results; in particular, the odds ratios/probability values
 associated with the logistic regression model captured/reflected additional
-uncertainty, a key "value-add."
+uncertainty via larger standard errors, a key area of "value-add."
 
 This paper is not without its limitations, and looking ahead, I would suggest
 that future work aim to address these limitations. On the more technical side of
