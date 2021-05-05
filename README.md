@@ -9,19 +9,18 @@
 
 This repo contains 1 key file: "policyorpartisanship_brextianalysis.Rmd," the
 Rmd file that contains all of the code used in the creation of this final 
-replication project. This Rmd file also contains all of the commentary/
-interpretation associated with the various components of the project, from the
-replicated results, to my extension. Note that 
-"policyorpartisanship_brextianalysis.pdf" is the knitted version of this Rmd 
-file.
+replication project. This Rmd file also contains all of the commentary/interpretation 
+associated with the various components of the project, from the replicated 
+results, to my extension. Note that "policyorpartisanship_brextianalysis.pdf" is 
+the knitted version of this Rmd file.
 
 There is also one other file:
 
 "deletedcode.R" contains code that I explored in the creation of this 
-replication, but ultimately did not include. It's include here for future
+replication, but ultimately did not include. It's included here for future
 reference, if necessary.
 
-### How to run the code/the output that is produced:
+### How to run the code/produce the outputs:
 
 First, download the repo's contents. Note that this repo does not contain the
 original data used in this analysis, given the size of the datasets. With that
