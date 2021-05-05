@@ -285,11 +285,11 @@ stargazer(table1reg, intreg1, intreg1a,
                                "White",
                                "Scotland",
                                "Wales", 
-                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Interaction", 
                                "Constant"),
           dep.var.labels   = "Defect from Conservatives",
+          font.size = "small",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
-          font.size = "tiny",
           header = FALSE) 
 
 ```
@@ -408,7 +408,7 @@ stargazer(table2reg, intreg2, intreg2a,
                                "White",
                                "Scotland",
                                "Wales", 
-                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Interaction", 
                                "Constant"),
           
           dep.var.labels   = "Joined Conservatives",
@@ -1273,11 +1273,11 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
                                "White",
                                "Scotland",
                                "Wales", 
-                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Interaction", 
                                "Constant"),
           dep.var.labels   = "Defect from Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
-          font.size = "tiny",
+          font.size = "small",
           header = FALSE)
 
 ```
@@ -1404,11 +1404,11 @@ stargazer(table2reg_logistic, intreg2_logistic, intreg2a_logistic,
                                "White",
                                "Scotland",
                                "Wales", 
-                               "Pre-Referendum Euroskepticism:Perceived Change in Conservative Euroskepticism", 
+                               "Interaction", 
                                "Constant"),
           dep.var.labels   = "Joined Conservatives",
           no.space = TRUE, star.cutoffs = c(0.05, 0.01, 0.001),
-          font.size = "tiny",
+          font.size = "small",
           header = FALSE)
 
 ```
