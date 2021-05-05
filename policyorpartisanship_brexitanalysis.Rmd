@@ -52,9 +52,9 @@ align themselves with the Conservative party; looking specifically at the issue
 of redistribution, they find that this is indeed the case. The authors' other 
 results/conclusions are discussed in detail in the next section.
 
-In the next section, I replicate ^[The data and code used in the report can be 
-obtained here: https://github.com/trishprabhu/policyorpartisanship. The original 
-data/code is cited in the "References" section below.] the authors' main results 
+In the next section, I replicate ^[The code used in the report can be 
+obtained here: https://github.com/trishprabhu/policyorpartisanship. The data
+(and authors' code) is here: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QVTCYP; this link is also cited in the "References" section below.] the authors' main results 
 (6 tables and 2 figures), providing my analyses/interpretation (which confirm 
 the authors' conclusions). Like the authors, I used linear regression models to 
 produce these results. Then, in the third section, I consider ways to extend the
