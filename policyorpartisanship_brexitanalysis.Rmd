@@ -1287,8 +1287,8 @@ stargazer(table1reg_logistic, intreg1_logistic, intreg1a_logistic,
 # Let's use the sjPlot package to plot the last model (with the interaction,
 # and all of the covariates) in both its linear and logistic form:
 
-plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE, 
-           axis.labels = c("Interaction",
+plot1lm_noprob <- plot_model(intreg1a, show.values = TRUE,
+                    axis.labels = c("Interaction",
                      "Wales",
                      "Scotland",
                      "White",
@@ -1362,8 +1362,14 @@ more nuanced picture of the results with an odds ratio interpretation;
 specifically, it more concretely allows us to compare the relative magnitudes of 
 the various coefficients. In addition, as is visually apparent, both the the 
 logistic odds ratios and probability estimates have larger standard errors; 
-this implies that the logistic regression model ultimately captures and reflects
-more uncertainty, a key area of "value-add" in interpreting the results.
+consider, for example, the "Pre-Referendum Euroskepticism" coefficient (the
+main coefficient of interest); the relative difference (coefficient/SE) for the 
+linear regression model is 0.0001/0.001 = 0.10, while the relative difference 
+for the logistic regression model is 0.005/0.021 = ~ 0.238. This implies that 
+the linear regression model's standard errors are not quite right -- and that 
+that the logistic regression model ultimately captures and reflects more 
+uncertainty. This, then, is a key area of "value-add" in interpreting and
+understanding the results.
 
 ```{r, echo = FALSE}
 
@@ -1492,12 +1498,14 @@ For the most part, the significance of the values are consistent as well, with
 the singular exception of the "Perceived Change in Conservative Euroskepticism" 
 coefficient, which loses one significance star in the logistic regression model 
 (note, though, that its coefficient and probability values are still significant 
-at the 0.05 level across both models). This is likely due to the fact that (as 
-is visually apparent) for both the odds ratios and probabilities, once again, 
-the logistic regression values have larger standard errors; the model clearly 
-captures and reflects additional uncertainty. Ultimately, then, like Table 1,
-the "value-add" of the logistic regression is in this additional nuance in 
-understanding the results.
+at the 0.05 level across both models). This is likely due to the fact that, 
+once again, for both the odds ratios and probabilities the logistic regression 
+values have larger standard errors. Take, once again, the "Pre-Referendum 
+Euroskepticism" coefficient; the relative difference (coefficient/SE) for the 
+linear regression model is 0.006/0.001 = 6, while the relative difference for 
+the logistic regression model is 0.177/0.016 = ~ 11. Ultimately, then, like 
+Table 1, the "value-add" of the logistic regression model is in capturing and 
+reflecting additional uncertainty.
 
 # IV. Conclusion
 
@@ -1534,7 +1542,7 @@ in the 2017 elections.
 My extension found:
 
 * While logistic regression didn't produce a change in the substantive results 
-of the paper, it did add additional nuance/understanding to interpretation of 
+of the paper, it did add important nuance/understanding to interpretation of 
 the results; in particular, the odds ratios/probability values associated with 
 the logistic regression model captured/reflected additional uncertainty via 
 larger standard errors, a key area of "value-add."
